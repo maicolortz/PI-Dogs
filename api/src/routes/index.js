@@ -41,11 +41,9 @@ const getInfoDB = async () => {
 };
 //concatenar todos los datos
 const getAllDogs = async () => {
-
   const [api, db] = [await getInfoAPI(),await getInfoDB()];
   console.log(db)
   return [...api, ...db];
-
 };
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
@@ -87,7 +85,15 @@ router.post("/dogs", async (req, res) => {
 });
 //obtener todos los temperamentos, primero de la api externa y guardarlos
 //en la base de datos
-router.get("/temperaments");
+router.get("/temperaments", async (req,res)=>{
+  const data=await getAllDogs();
+  const temperaments=data.map(e=>e.temperament).toString().split(",")
+  const temper=temperaments.map(f=>Temperament.findOrCreate({ where:{name:f}}))
+  //console.log('temper'+temper)
+  //console.log('temperaments'+temperaments)
+  const t=await Temperament.findAll();
+  return res.send(t)
+});
 // Configurar los routers
 //todas las razas y los datos de principal
 //router.get('/dogs',getDogs);
