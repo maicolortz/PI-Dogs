@@ -41,13 +41,15 @@ const getInfoDB = async () => {
 };
 //concatenar todos los datos
 const getAllDogs = async () => {
-  const [api, db] = [await getInfoAPI(),await getInfoDB()];
-  console.log(db)
+  const [api, db] = [await getInfoAPI(), await getInfoDB()];
+  console.log(db);
   return [...api, ...db];
 };
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
-  res.json(infototal);
+  const{name}=req.query;
+  if(name){ const filtered = infototal.filter(e=>e.name.toLowerCase().includes(name.toLowerCase())); filtered.length?res.send(filtered):res.send("Dog has not been founded")}
+  else{res.json(infototal)}
 });
 // Ejemplo: router.use('/auth', authRouter);
 //lista de razas de perros que contengan la palabra ingresada
@@ -83,16 +85,29 @@ router.post("/dogs", async (req, res) => {
   console.log(dog);
   res.status(200).send("Dog has been created");
 });
+
+router.get("/dogs/:id", async (req, res) => {
+  const { id } = req.params;
+  const dog = await getAllDogs();
+  const dogfound = dog.filter((e) => e.id == id);
+  dogfound
+    ? res.status(200).json(dogfound)
+    : res.send("not has been founded in the database");
+});
 //obtener todos los temperamentos, primero de la api externa y guardarlos
 //en la base de datos
-router.get("/temperaments", async (req,res)=>{
-  const data=await getAllDogs();
-  const temperaments=data.map(e=>e.temperament).toString().split(",")
-  const temper=temperaments.map(f=>Temperament.findOrCreate({ where:{name:f}}))
-  //console.log('temper'+temper)
-  //console.log('temperaments'+temperaments)
-  const t=await Temperament.findAll();
-  return res.send(t)
+router.get("/temperaments", async (req, res) => {
+  const data = await getAllDogs();
+  const temperaments = data
+    .map((e) => e.temperament)
+    .toString()
+    .split(",");
+  const temper = temperaments.map((f) =>
+    Temperament.findOrCreate({ where: { name: f } })
+  );
+  //console.log('temper'+temper);//console.log('temperaments'+temperaments)
+  const t = await Temperament.findAll();
+  return res.send(t);
 });
 // Configurar los routers
 //todas las razas y los datos de principal
