@@ -21,19 +21,25 @@ export default function rootReducer(state=initialState,action){
                 ...state,
                 dogDetail:action.payload,
             }
-            case "GET_DOG_FOR_NAME":
+            case "GET_DOG":
             return{
                 ...state,
                 dog:action.payload,
             }
             case "ORDER_FOR_WEIGHT":
+
             return{
                 ...state,
+                dog:action.payload
                 
             }
             case "ORDER_FOR_NAME":
+            const ordeneds=
+            action.payload=='asc'? state.dog.sort((a,b) => a.name.localeCompare(b.name))
+            : state.dog.sort((a,b)=>b.name.localeCompare(a.name))
             return{
                 ...state,
+                dog:ordeneds
                 
             }
             case "GET_FILTER_FOR_TEMPERAMENT":
