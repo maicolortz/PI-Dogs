@@ -1,3 +1,5 @@
+import { OrderForWeight } from "../actions";
+
 const initialState = {
   dog: [],
   temperaments: [],
@@ -28,9 +30,18 @@ export default function rootReducer(state=initialState,action){
             }
             case "ORDER_FOR_WEIGHT":
 
+            
+           let  ordenWeight=state.dog
+           let index=ordenWeight.findIndex(e=>e.id===232)
+           ordenWeight[index].weight.imperial='18'
+           state.dog=ordenWeight;
+           ordenWeight=
+            action.payload=='min'? state.dog.sort((a,b) => a.weight.imperial.localeCompare(b.weight.imperial, undefined, { numeric: true }))
+            : state.dog.sort((a,b) => b.weight.imperial.localeCompare((a.weight.imperial), undefined, { numeric: true }))
             return{
                 ...state,
-                dog:action.payload
+
+                dog:ordenWeight
                 
             }
             case "ORDER_FOR_NAME":

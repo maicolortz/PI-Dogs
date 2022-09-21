@@ -2,9 +2,9 @@ import React, { Component, useEffect } from "react";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { getDog, OrderForName, getDogs} from "../redux/actions/index.js";
+import { getDog, OrderForName, getDogs, OrderForWeight} from "../redux/actions/index.js";
 
-const Home = ({ Dogs,OrderForName, Dog, getDogs, getDog }) => {
+const Home = ({ Dogs,OrderForName,OrderForWeight, Dog, getDogs, getDog }) => {
   const [name, setName] = useState("");
  // const dispatch=useDispatch()
   const [sort,setSort]=useState()
@@ -23,6 +23,11 @@ const Home = ({ Dogs,OrderForName, Dog, getDogs, getDog }) => {
     e.preventDefault();
     OrderForName(e.target.value);
     setSort(e.target.value);
+  }
+  let orderWeight=(e)=>{
+    e.preventDefault();
+    OrderForWeight(e.target.value)
+    setSort(e.target.value)
   }
   return (
     <div>
@@ -46,10 +51,21 @@ const Home = ({ Dogs,OrderForName, Dog, getDogs, getDog }) => {
         <button onClick={() => getDog("")}>clear Filter</button>
       </div>
       <div>
-        <label> order Alphabetic</label>
       <select onChange={(e)=>order(e)}>
+      <option disabled selected defaultValue>
+      order Alphabetic
+      </option>
             <option value="asc">ascending</option>
             <option  value="des">descending</option>
+          </select>
+      </div>
+      <div>
+      <select onChange={(e)=>orderWeight(e)}>
+      <option disabled selected defaultValue>
+      order Weight
+      </option>
+            <option value="min">Minime Weight</option>
+            <option  value="max">Maxime Weight</option>
           </select>
       </div>
 
@@ -80,7 +96,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getDogs: () => dispatch(getDogs()),
     getDog: (name) => dispatch(getDog(name)),
-    OrderForName:(e)=>dispatch(OrderForName(e))
+    OrderForName:(e)=>dispatch(OrderForName(e)),
+    OrderForWeight:(e)=>dispatch(OrderForWeight(e))
   };
 }
 
