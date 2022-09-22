@@ -47,9 +47,15 @@ const getAllDogs = async () => {
 };
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
-  const{name}=req.query;
-  if(name){ const filtered = infototal.filter(e=>e.name.toLowerCase().includes(name.toLowerCase())); filtered.length?res.send(filtered):res.send("Dog has not been founded")}
-  else{res.json(infototal)}
+  const { name } = req.query;
+  if (name) {
+    const filtered = infototal.filter((e) =>
+      e.name.toLowerCase().includes(name.toLowerCase())
+    );
+    filtered.length ? res.send(filtered) : res.send("Dog has not been founded");
+  } else {
+    res.json(infototal);
+  }
 });
 // Ejemplo: router.use('/auth', authRouter);
 //lista de razas de perros que contengan la palabra ingresada
@@ -101,6 +107,7 @@ router.get("/temperaments", async (req, res) => {
   const temperaments = data
     .map((e) => e.temperament)
     .toString()
+    .replace(/ /g, "")
     .split(",");
   const temper = temperaments.map((f) =>
     Temperament.findOrCreate({ where: { name: f } })
@@ -108,6 +115,18 @@ router.get("/temperaments", async (req, res) => {
   //console.log('temper'+temper);//console.log('temperaments'+temperaments)
   const t = await Temperament.findAll();
   return res.send(t);
+});
+///http://localhost:4000/dog/?temperament=algo
+router.get("/dog/", async (req, res) => {
+  const { temperament } = req.query;
+  const Dogs = await getAllDogs();
+  /////////////filtramos 
+  const filtered = Dogs.filter((dog) => {
+    if (temperament === "all") return Dogs;
+    else if (dog.temperament) {
+      return dog.temperament.toLowerCase().includes(temperament.toLowerCase());
+    }
+  });     res.status(200).json(filtered);
 });
 // Configurar los routers
 //todas las razas y los datos de principal

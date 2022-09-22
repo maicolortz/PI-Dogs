@@ -16,13 +16,11 @@ export function getDog(name){
   }
 }
 export function getTemperament() {
-  return async function (dispatch) {
-    let json = await axios.get(`/temperaments`);
-    return dispatch({
-      type: "GET_TEMPERAMENTS",
-      payload: json.data,
-    });
-  };
+  return async function (dispatch){
+    return fetch( `http://localhost:4000/temperaments`)
+        .then(r=>r.json())
+        .then(m=>dispatch({type: 'GET_TEMPERAMENT', payload:m}))
+}
 }
 export function getDogDetail(id) {
   return async function (dispatch) {
@@ -58,8 +56,11 @@ export function OrderForName(payload){
         type:"ORDER_FOR_NAME",payload
     }
 }
-export function filterForTemperament(payload){
-    return {
-        type:"GET_FILTER_FOR_TEMPERAMENT",payload
-    }
+
+export function filterForTemperament(name){
+  return async function (dispatch){
+      return fetch( `http://localhost:4000/dog/?temperament=${name}`)
+          .then(r=>r.json())
+          .then(m=>dispatch({type: 'FILTER_FOR_TEMPERAMENT', payload:m}))
+  }
 }
