@@ -5,10 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('https://s1.1zoom.me/big3/386/Dogs_Snout_Winter_hat_Russian_Head_556072_2048x1367.jpg');   
-background-size: contain; 
-background-attachment: fixed;
-
+  background-image:url('https://media.istockphoto.com/photos/green-grass-background-lawn-football-field-green-grass-artificial-picture-id1365124353?k=20&m=1365124353&s=612x612&w=0&h=kza-VF-DNEOUWLofKARcC0j-TC8fFSaHtOnZMtzqTTA=')
 }
 
 code {

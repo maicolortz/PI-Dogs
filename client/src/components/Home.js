@@ -131,12 +131,12 @@ const Home = ({
                 <div key={dog.id}>
               <CardDog 
               id={dog.id}
-                height={dog.height.metric}
+                
                 weight={dog.weight.metric}
                  name={dog.name}
                  temperament={dog.temperament}
                  img={dog.image}
-                 life_span={dog.life_span}
+                 
                 />
               </div>
             ))}

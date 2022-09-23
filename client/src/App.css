@@ -108,7 +108,7 @@ font-family: fantasy;
 .imgcard{
   object-fit: cover;
   width:100%;
-  height:50%;
+  max-height: 60%;
 }
 .imglanding{
   width: 100%;
@@ -135,6 +135,7 @@ transition: 1s;
   width: 250px;
   height: 100px;
   background-color: orange;
+  opacity: 0.8;
   
 }
 .container {
@@ -148,6 +149,25 @@ padding-bottom: 5rem;
 padding-left: 1rem;
 justify-content: space-evenly;
 
+
+}
+.cardDetail{
+width: 70%;
+border-radius: 7%;
+  line-height: 24pt;
+  letter-spacing: 0.5px;
+  height: 150vh;
+  object-fit: cover;
+  font-size: 1rem;
+text-decoration: dotted;
+text-align: center;
+  background: #000000a9;
+  
+  color: white;
+  margin: 6px;
+  box-shadow: inset 30px 10px 30px 30px rgba(20, 20, 20, 0.534);
+  font-style: italic;
+  font-size: xx-large;
 }
 .card{
   border-radius: 7%;
@@ -159,12 +179,22 @@ justify-content: space-evenly;
   font-size: 1rem;
 text-decoration: dotted;
 text-align: center;
-  background: #111c25a9;
-  border: 1px solid #212731;
+  background: #000000eb;
+  
   color: white;
   margin: 6px;
   box-shadow: 7px 7px 12px 0 rgba(20, 20, 20, 0.3);
-  box-shadow: inset 0px 0px 10px 0 rgba(20, 20, 20, 0.2);
+  box-shadow: inset 0px 10px 46px 21px rgb(20 20 20 / 53%);
+}
+.b-home{
+  color: black;
+  background-color: orange;
+  width: 200px;
+}
+.b-home:hover{
+  width: 200px;
+  color: black;
+  background-color: orangered;
 }
 .navlink{
   color: rgb(141, 148, 42);
@@ -172,4 +202,18 @@ text-align: center;
 }
 .imagenpanel{
   width: 15%;
+}
+.formdetail{
+  display: flex;
+  height: 6vh;
+
+}
+.b-detail{
+  background-color: orange;
+  opacity: 0.9;
+  color: black;
+}
+.b-detail:hover{
+  background-color: orangered;
+  transition: 0.5s;
 }

@@ -11,14 +11,34 @@ import { getDogDetail } from '../redux/actions';
   },[params])
   return (
     <>
+    <form className="formdetail"method="get" action="/home">
+        <button className="b-detail" type="submit">
+          Back
+        </button>
+      </form>
+    <div className='container'>
+      
        {dogDetail &&
        dogDetail.map((dog)=>(
-        <div className='card'>
+        <div className='cardDetail'>
 
         <h1>{dog.name}</h1>
         <img className="imgcard" src={dog.image} alt={dog.name}></img>
+        <span>
+        {" "}
+       <strong>Weight :</strong>  <br/>
+        Imperial :{dog.weight.imperial}<br/>
+        Metric : {dog.weight.metric}<br/><br/>
+        <strong>Height : </strong><br/>
+        Imperial :{dog.height.imperial}<br/>
+        Metric : {dog.height.metric}<br/><br/>
+        <strong>Life Span :</strong>{dog.life_span}<br/><br/><br/>
+        <strong>Temperaments:</strong><br/>
+        {dog.temperament}<br/>
+      </span>
         </div>
        ))}
+    </div>
     </>
   )
 }
