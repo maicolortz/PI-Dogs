@@ -10,6 +10,7 @@ import {
   filterForTemperament,
   getTemperament,
 } from "../redux/actions/index.js";
+import CardDog from "./CardDog.js";
 
 const Home = ({
   Dogs,
@@ -21,7 +22,6 @@ const Home = ({
   filterForTemperament,
   temperaments,
   getTemperament,
-
 }) => {
   const [name, setName] = useState("");
   // const dispatch=useDispatch()
@@ -29,13 +29,15 @@ const Home = ({
   useEffect(() => {
     getDog();
   }, [sort]);
-  useEffect(()=>{
+  useEffect(() => {
     getTemperament();
-    getDog(' ');
-  },[])
+    getDog(" ");
+  }, []);
 
-  let handleChange = (e) => {setName(e.target.value);};
-  
+  let handleChange = (e) => {
+    setName(e.target.value);
+  };
+
   let handleSubmit = (e) => {
     e.preventDefault();
     //getDogs();
@@ -59,14 +61,20 @@ const Home = ({
     setSort(e.target.value);
   };
   return (
-    <div>
-      <h2>Buscador</h2>
-      <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
+    <div className="contenedormayor">
+      <section className="panel">
+        <div className="form-group">
+
+      <img className="imagenpanel"src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"></img>
+      <div className="icono"></div>
+        </div>
+      <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label className="label" htmlFor="name">
-            raza:{" "}
+            BREED:
           </label>
           <input
+          placeholder="Search ......"
             type="text"
             id="name"
             autoComplete="off"
@@ -74,8 +82,11 @@ const Home = ({
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <button type="submit">BUSCAR</button>
+        <button type="submit">Search</button>
       </form>
+      <div className="form-group">
+
+      
       <div>
         <button onClick={() => getDog("")}>clear Filter</button>
       </div>
@@ -111,20 +122,30 @@ const Home = ({
             ))}
         </select>
       </div>
-
-      <ul>
-        {Dog &&
-          Dog.map((movie) => (
-            <div key={movie.id}>
-              <h2>{movie.name}</h2>
-            </div>
-          ))}
-        {/* {Dogs && Dogs.map(movie=>(
-        <div key={movie.id}>
+      </div>
+      </section>
+      <section className="container">
+        
+          {Dog &&
+            Dog.map((dog) => (
+                <div key={dog.id}>
+              <CardDog 
+              id={dog.id}
+                height={dog.height.metric}
+                weight={dog.weight.metric}
+                 name={dog.name}
+                 temperament={dog.temperament}
+                 img={dog.image}
+                 life_span={dog.life_span}
+                />
+              </div>
+            ))}
+          {/* {Dogs && Dogs.map(movie=>(
+          <div key={movie.id}>
           <h2>{movie.name}</h2> 
         </div>
       ))} */}
-      </ul>
+      </section>
     </div>
   );
 };
@@ -143,8 +164,7 @@ function mapDispatchToProps(dispatch) {
     OrderForName: (e) => dispatch(OrderForName(e)),
     OrderForWeight: (e) => dispatch(OrderForWeight(e)),
     filterForTemperament: (e) => dispatch(filterForTemperament(e)),
-    getTemperament:(e)=>dispatch(getTemperament(e))
-
+    getTemperament: (e) => dispatch(getTemperament(e)),
   };
 }
 

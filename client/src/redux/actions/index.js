@@ -22,14 +22,13 @@ export function getTemperament() {
         .then(m=>dispatch({type: 'GET_TEMPERAMENT', payload:m}))
 }
 }
+
 export function getDogDetail(id) {
-  return async function (dispatch) {
-    let json = await axios.get(`/dogs/${id}`);
-    return dispatch({
-      type: "GET_DOG_DETAIL",
-      payload: json.data,
-    });
-  };
+  return async function (dispatch){
+      return fetch( `http://localhost:4000/dogs/${id}`)
+          .then(r=>r.json())
+          .then(m=>dispatch({type: 'GET_DOG_DETAIL', payload:m}))
+  }
 }
 export function getDogForName(name) {
   return async function (dispatch) {
