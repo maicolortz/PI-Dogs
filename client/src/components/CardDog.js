@@ -8,11 +8,12 @@ function CardDog({ id, img, name, weight, temperament }) {
       <img className="imgcard" src={img} alt={name}></img>
       <span>
         {" "}
-        <strong>Weight Metric : </strong>{weight}<br/>
-        
+        <br/>
+        <strong>Weight Metric :   </strong>{weight}<br/>
+        <br/>
         <strong>Temperaments:</strong><br/>
         {temperament}<br/>
-      </span>
+      </span><br/>
       <NavLink className='navlink'to={`/dogs/${id}`}>Detail</NavLink>
     </div>
   );

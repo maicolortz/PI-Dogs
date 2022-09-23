@@ -12,7 +12,7 @@ function App() {
     <Routes>
     <Route index element={<Landingpage/>} />
       <Route path="/home" element={<Home></Home>} />
-      <Route path="/Newdog" element={<Formdog/>} />
+      <Route path="/newdog" element={<Formdog/>} />
       <Route path='/dogs/:id' element={<DogDetail/>}/>
       <Route path="*" element={<NotFound />} />
     </Routes>

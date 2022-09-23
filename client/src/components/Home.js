@@ -122,6 +122,11 @@ const Home = ({
             ))}
         </select>
       </div>
+      <form className="formdetail"method="get" action="/newdog">
+        <button className="b-detail" type="submit">
+          Create Dog
+        </button>
+      </form>
       </div>
       </section>
       <section className="container">

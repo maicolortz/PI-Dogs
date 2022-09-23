@@ -1,42 +1,14 @@
-.App {
-  text-align: center;
-  background-image:url("https://th.bing.com/th/id/R.1871de5a15696af9e55180298eec2a1c?rik=g%2bJ8X%2flb%2fIAJOQ&pid=ImgRaw&r=0");
+
+.headerform{
+  font-family: ui-sans-serif;
+color: orange;
+font-style: oblique;
+font-size: 3rem;
+padding: 0rem;
+border-radius: 3rem;
+box-shadow: inset 0px 10px 46px 21px rgb(20 20 20 / 53%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .contenedormayor{
   display: flex;
   justify-content: center;
@@ -44,6 +16,14 @@
   flex-direction: column;
  
 }
+form,input,selector,option{
+  font-family: fantasy;
+  text-align: center;
+}
+input{
+  background-color: rgb(202, 202, 202);
+}
+
 .contenedor {
   display: flex;
   flex-direction: column;
@@ -56,8 +36,15 @@
 }
 .form-group{
   display: flex;
-  justify-content: center;
-  margin: 0.3rem;
+  justify-content:center;
+  margin: 1rem;
+  
+}
+.form-g{
+  display: flex;
+  flex-direction: column;
+  font-size: x-large;
+
 }
 .formlanding{
   position: fixed;
@@ -151,7 +138,7 @@ justify-content: space-evenly;
 
 
 }
-.cardDetail{
+.cardDetail,.form{
 width: 70%;
 border-radius: 7%;
   line-height: 24pt;
@@ -170,6 +157,7 @@ text-align: center;
   font-size: xx-large;
 }
 .card{
+  padding-top: 1rem ;
   border-radius: 7%;
   line-height: 13pt;
   letter-spacing: 0.5px;
@@ -205,8 +193,18 @@ text-align: center;
 }
 .formdetail{
   display: flex;
-  height: 6vh;
+  height: 8vh;
 
+}
+.form{
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  
+  text-align: center;
+  width: 70%;
+  height: fit-content;
+  padding: 2%;
 }
 .b-detail{
   background-color: orange;
