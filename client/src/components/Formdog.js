@@ -1,13 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { filterForTemperament, getTemperament } from "../redux/actions";
-function Formdog({ filterForTemperament, temperaments, getTemperament }) {
+import {
+  filterForTemperament,
+  getTemperament,
+  postDog,
+} from "../redux/actions";
+function Formdog({
+  filterForTemperament,
+  temperaments,
+  getTemperament,
+  postDog,
+}) {
   const [temperamentsadd, setTemperamentsadd] = useState("");
+  const navigate =useNavigate();
+  const [valido,setValido]=useState(false)
+  const [newBreed, setNewBreed] = useState({
+    name: "",
+    temperament: "",
+    min_height: 0,
+    max_height: 0,
+    min_weight: 0,
+    max_weight: 0,
+    image: "",
+    life_span: "",
+  });
   useEffect(() => {
     getTemperament();
   }, []);
+  useEffect(()=>{
+    if(valido){
+
+      postDog(newBreed)
+      navigate('/home')
+    }
+  },[newBreed])
+  
   let filterTemperament = (e) => {
     e.preventDefault();
     //getTemperament();
@@ -17,24 +46,86 @@ function Formdog({ filterForTemperament, temperaments, getTemperament }) {
   //validacion de formulario
   let validarFormulario = (e) => {
     e.preventDefault();
-    let breed = document.getElementById("nombre")
-    let [heightmin,heightmax]=[document.getElementById('heightmin').value,document.getElementById('heightmax').value]
-    let [weightmin,weightmax]=[document.getElementById('weightmin').value,document.getElementById('weightmax').value]
-    let [lifespan,input_temperaments]=[document.getElementById('lifespan').value,document.getElementById('temperaments').value]
-    breed.value.length==0 ? alert("you have write some in name (BREED)"):
-    input_temperaments.length==0?alert('you have some temperament'):
-    heightmin.length==0 ?alert("you have write some in minime height  (HEIGHT)") :
-    heightmax.length==0 ?alert("you have write some in maxime height  (HEIGHT)") :
-    weightmin.length==0 ?alert("you have write some in minime Weight  (WEIGHT)") :
-    weightmax.length==0 ?alert("you have write some in maxime Weight  (WEIGHT)") :
-    heightmax<heightmin?alert('your HEIGHT MAXIME has be more great that your HEIGHT MINIME'):
-    weightmax<weightmin?alert('your WEIGHT MAXIME has be more great that your WEIGHT MINIME'):
-    lifespan.length==0?alert('you have write some in LIFE-SPAN'):
-    alert('!all correct and sended!');
-      console.log('height min '+heightmin + '  height max '+heightmax +'weight min '+weightmin + '  weight max '+weightmax )
-    
-   // heightmax>heightmin?console.log('correcto'):console.log('incorrecto')
+    let breed = document.getElementById("nombre");
+    let [heightmin, heightmax] = [
+      document.getElementById("heightmin").value,
+      document.getElementById("heightmax").value,
+    ];
+    let [weightmin, weightmax] = [
+      document.getElementById("weightmin").value,
+      document.getElementById("weightmax").value,
+    ];
+    let [lifespan, input_temperaments] = [
+      document.getElementById("lifespan").value,
+      document.getElementById("temperaments").value,
+    ];
+    /* const height = [min_height, max_height];
+  const weight = [min_weight, max_weight];
 
+  const dog = await Dog.create({
+    name,
+    temperament,
+    height: height,
+    weight: weight,
+    life_span,
+    image,
+  }); */
+    
+
+    let valido = false;
+    breed.value.length == 0
+      ? alert("you have write some in name (BREED)")
+      : input_temperaments.length == 0
+      ? alert("you have some temperament")
+      : heightmin.length == 0
+      ? alert("you have write some in minime height  (HEIGHT)")
+      : heightmax.length == 0
+      ? alert("you have write some in maxime height  (HEIGHT)")
+      : weightmin.length == 0
+      ? alert("you have write some in minime Weight  (WEIGHT)")
+      : weightmax.length == 0
+      ? alert("you have write some in maxime Weight  (WEIGHT)")
+      : heightmax < heightmin
+      ? alert("your HEIGHT MAXIME has be more great that your HEIGHT MINIME")
+      : weightmax < weightmin
+      ? alert("your WEIGHT MAXIME has be more great that your WEIGHT MINIME")
+      : lifespan.length == 0
+      ? alert("you have write some in LIFE-SPAN")
+      : setValido(true);
+    //console.log(nBreed);
+
+    console.log(
+      "name: " +
+        breed.value +
+        "height min " +
+        heightmin +
+        "  height max " +
+        heightmax +
+        "weight min " +
+        weightmin +
+        "  weight max " +
+        weightmax
+    );
+    
+      let tem=""+input_temperaments+""
+      let na=""+breed.value+""
+   
+     
+      setNewBreed({
+        "name": na,
+        "temperament": tem,
+        "min_height": heightmin,
+        "max_height": heightmax,
+        "min_weight": weightmin,
+        "max_weight": weightmax,
+        "life_span": lifespan,
+      });
+      
+    
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
   };
   return (
     <div className="contenedor">
@@ -50,7 +141,7 @@ function Formdog({ filterForTemperament, temperaments, getTemperament }) {
           <h1>New Dog</h1>
           <br />
         </div>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-g">
             <label>Breed</label>
             <input
@@ -75,7 +166,10 @@ function Formdog({ filterForTemperament, temperaments, getTemperament }) {
                   ))}
               </select>
             </div>
-            <input value={temperamentsadd}id='temperaments' readOnly
+            <input
+              value={temperamentsadd}
+              id="temperaments"
+              readOnly
               onChange={temperamentsadd}
             ></input>
           </div>
@@ -83,22 +177,28 @@ function Formdog({ filterForTemperament, temperaments, getTemperament }) {
             <label>Height</label>
             <span for="price">Choose a minime height...... ( CM ) : </span>
             <input
-            id='heightmin'
-                maxLength='3'
+              id="heightmin"
+              maxLength="3"
               type="number"
               name="heightmin"
-              
               step="1"
             />
             <span for="price">Choose a maxime height......( CM ) : </span>
-            <input id='heightmax' type="number" name="heightmax" min="10" max="200" step="1" />
+            <input
+              id="heightmax"
+              type="number"
+              name="heightmax"
+              min="10"
+              max="200"
+              step="1"
+            />
           </div>
 
           <div className="form-g">
             <label>Weight</label>
             <span for="price">Choose a minime weight......( KG ) : </span>
             <input
-            id='weightmin'
+              id="weightmin"
               maxLength="3"
               type="number"
               name="weightmin"
@@ -107,11 +207,22 @@ function Formdog({ filterForTemperament, temperaments, getTemperament }) {
               step="1"
             />
             <span for="price">Choose a maxime weight......( KG ) : </span>
-            <input id='weightmax'type="number" name="weightmax" min="1" max="100" step="1" />
+            <input
+              id="weightmax"
+              type="number"
+              name="weightmax"
+              min="1"
+              max="100"
+              step="1"
+            />
           </div>
           <div className="form-g">
             <label>life_span</label>
-            <input id="lifespan" type="number" placeholder=" life span in years"></input>
+            <input
+              id="lifespan"
+              type="number"
+              placeholder=" life span in years"
+            ></input>
           </div>
 
           <br />
@@ -134,6 +245,7 @@ function mapDispatchToProps(dispatch) {
   return {
     filterForTemperament: (e) => dispatch(filterForTemperament(e)),
     getTemperament: (e) => dispatch(getTemperament(e)),
+    postDog: (e) => dispatch(postDog(e)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Formdog);

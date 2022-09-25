@@ -1,7 +1,6 @@
 import axios from "axios";
 export function getDogs(){
   return async function (dispatch){
-      //return fetch( `http://www.omdbapi.com?apikey=d1dcdf9c&s=${title}`)
       return fetch( `http://localhost:4000/dogs`)
           .then(r=>r.json())
           .then(m=>dispatch({type: 'GET_DOGS', payload:m}))
@@ -9,7 +8,6 @@ export function getDogs(){
 }
 export function getDog(name){
   return async function (dispatch){
-      //return fetch( `http://www.omdbapi.com?apikey=d1dcdf9c&s=${title}`)
       return fetch( `http://localhost:4000/dogs?name=${name}`)
           .then(r=>r.json())
           .then(m=>dispatch({type: 'GET_DOG', payload:m}))
@@ -30,18 +28,10 @@ export function getDogDetail(id) {
           .then(m=>dispatch({type: 'GET_DOG_DETAIL', payload:m}))
   }
 }
-export function getDogForName(name) {
-  return async function (dispatch) {
-    let json = await axios.get(`/dogs?name=${name}`);
-    return dispatch({
-      type: "GET_DOGS_FOR_NAME",
-      payload: json.data,
-    });
-  };
-}
+
 export function postDog(dog) {
   return async function () {
-    const d = await axios.post("/dog", dog);
+    const d = await axios.post("http://localhost:4000/dogs", dog);
     return d;
   };
 }
