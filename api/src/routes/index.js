@@ -73,13 +73,13 @@ router.post("/dogs", async (req, res) => {
     image,
     life_span,
   } = req.body;
-  const height = [min_height, max_height];
+  const height = `${min_height} - ${ max_height}`;
   const weight = `${min_weight} - ${ max_weight}`;
 
   const dog = await Dog.create({
     name,
     temperament: temperament,
-    height: height,
+    height: {metric:height},
     weight: {metric:weight},
     life_span,
     image,

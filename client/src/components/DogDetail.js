@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { getDogDetail } from '../redux/actions';
-
+import dogdefault from '../../src/images/perro.png'
  const DogDetail = ({getDogDetail,dogDetail}) => {
   const params=useParams();
 
@@ -23,7 +23,7 @@ import { getDogDetail } from '../redux/actions';
         <div className='cardDetail'>
 
         <h1>{dog.name}</h1>
-        <img className="imgcard" src={dog.image} alt={dog.name}></img>
+        <img className="imgcard" src={dog.image?dog.image:dogdefault} alt={dog.name}></img>
         <span>
         {" "}
        <strong>Weight :</strong>  <br/>
@@ -32,9 +32,9 @@ import { getDogDetail } from '../redux/actions';
         <strong>Height : </strong><br/>
         Imperial :{dog.height.imperial}<br/>
         Metric : {dog.height.metric}<br/><br/>
-        <strong>Life Span :</strong>{dog.life_span}<br/><br/><br/>
+        <strong>Life Span :</strong>{dog.life_span} YEARS<br/><br/><br/>
         <strong>Temperaments:</strong><br/>
-        {dog.temperament}<br/>
+        {dog.temperament?dog.temperament:dog.temperaments[0].name}<br/>
       </span>
         </div>
        ))}
