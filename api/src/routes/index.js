@@ -45,6 +45,15 @@ const getAllDogs = async () => {
   console.log(db);
   return [...api, ...db];
 };
+//http://localhost:4000/dogs/?db=algo
+router.get("/dogs/",async(req,res)=>{
+  const { db } = req.query;
+    const infoDb = await getInfoDB();
+    const api=await getInfoAPI();
+    /////////////filtramos
+    const filtered = db==='true'?infoDb:api
+  res.json(filtered);
+})
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
 

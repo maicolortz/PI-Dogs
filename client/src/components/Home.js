@@ -9,9 +9,11 @@ import {
   OrderForWeight,
   filterForTemperament,
   getTemperament,
+  getDogDtabase,
 } from "../redux/actions/index.js";
 import CardDog from "./CardDog.js";
 import perrodefault from '../../src/images/perro.png';
+
 const Home = ({
   Dogs,
   OrderForName,
@@ -22,13 +24,14 @@ const Home = ({
   filterForTemperament,
   temperaments,
   getTemperament,
+  getDogDatabase
 }) => {
   
   const [name, setName] = useState("");
   // const dispatch=useDispatch()
   const [sort, setSort] = useState();
   /* useEffect(() => {
-    getDog();
+    getDogs();
   }, [sort]); */
   useEffect(() => {
     getTemperament();
@@ -61,6 +64,11 @@ const Home = ({
     filterForTemperament(e.target.value);
     setSort(e.target.value);
   };
+  let filterDb=(e)=>{
+    e.preventDefault();
+    getDogDatabase(e.target.value);
+    setSort(e.target.value)
+  }
   return (
     <div className="contenedormayor">
       <section className="panel">
@@ -107,6 +115,15 @@ const Home = ({
           </option>
           <option value="min">Minime Weight</option>
           <option value="max">Maxime Weight</option>
+        </select>
+      </div>
+      <div>
+        <select onChange={(e) => filterDb(e)}>
+          <option disabled selected defaultValue>
+            Filter Dogs 
+          </option>
+          <option value="true">Dogs in database</option>
+          <option value="false">Dogs in extern api</option>
         </select>
       </div>
       <div>
@@ -173,6 +190,7 @@ function mapDispatchToProps(dispatch) {
     OrderForWeight: (e) => dispatch(OrderForWeight(e)),
     filterForTemperament: (e) => dispatch(filterForTemperament(e)),
     getTemperament: (e) => dispatch(getTemperament(e)),
+    getDogDatabase:(e)=>dispatch(getDogDtabase(e))
   };
 }
 

@@ -22,10 +22,17 @@ export default function rootReducer(state = initialState, action) {
         dogDetail: action.payload,
       };
     case "GET_DOG":
+      
       return {
         ...state,
         dog: action.payload,
       };
+      case "GET_DOG_DATABASE":
+      
+      return{
+          ...state,
+          dog:action.payload
+        }
     case "ORDER_FOR_WEIGHT":
       let /* ordenWeight=state.dog
            let index=ordenWeight.findIndex(e=>e.id===232)
