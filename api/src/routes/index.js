@@ -12,12 +12,12 @@ router.use(express.json());
 
 const getInfoAPI = async () => {
   const apiExterna = await axios.get(URL);
-  const Dogs = await apiExterna.data.map((dog) => {
+  const Dogs = await apiExterna.data.filter(e=>e.id!=232 && e.id!=179).map((dog) => {
     return {
       id: dog.id,
       image: dog.image.url,
       name: dog.name,
-      temperament: dog.temperament,
+      temperament: dog.temperament ? dog.temperament : "no info",
       weight: dog.weight,
       height: dog.height,
       life_span: dog.life_span,
@@ -47,6 +47,7 @@ const getAllDogs = async () => {
 };
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
+
   const { name } = req.query;
   if (name) {
     const filtered = infototal.filter((e) =>
@@ -73,23 +74,25 @@ router.post("/dogs", async (req, res) => {
     life_span,
   } = req.body;
   const height = [min_height, max_height];
-  const weight = [min_weight, max_weight];
+  const weight = `${min_weight} - ${ max_weight}`;
 
   const dog = await Dog.create({
     name,
-    temperament,
+    temperament: temperament,
     height: height,
-    weight: weight,
+    weight: {metric:weight},
     life_span,
     image,
   });
-  dog.addTemperament(
-    await Temperament.findAll({
-      where: { name: temperament },
-    })
-  );
-  console.log(dog);
-  res.status(200).send("Dog has been created");
+  console.log(temperament);
+  let tempd = await Temperament.create({ name: temperament });
+  /*  let temperamentDB = await Temperament.findAll({
+    where: { name: "Active"},
+  }); */
+  dog.addTemperament(tempd);
+  /* console.log(dog)
+  res.json(dog); */
+  res.send("created");
 });
 
 router.get("/dogs/:id", async (req, res) => {
@@ -107,26 +110,42 @@ router.get("/temperaments", async (req, res) => {
   const temperaments = data
     .map((e) => e.temperament)
     .toString()
-    .replace(/ /g, "")
     .split(",");
-  const temper = temperaments.map((f) =>
-    Temperament.findOrCreate({ where: { name: f } })
-  );
+
+  const temper = temperaments.map((f) => {
+    if (f) {
+      Temperament.findOrCreate({ where: { name: f } });
+    }
+  });
+  const tem = temperaments.filter((e) => e.name);
   //console.log('temper'+temper);//console.log('temperaments'+temperaments)
   const t = await Temperament.findAll();
   return res.send(t);
 });
+
 ///http://localhost:4000/dog/?temperament=algo
 router.get("/dog/", async (req, res) => {
-  const { temperament } = req.query;
-  const Dogs = await getAllDogs();
-  /////////////filtramos 
-  const filtered = Dogs.filter((dog) => {
-    if (temperament === "all") return Dogs;
-    else if (dog.temperament) {
-      return dog.temperament.toLowerCase().includes(temperament.toLowerCase());
-    }
-  });     res.status(200).json(filtered);
+  try {
+    const { temperament } = req.query;
+    const Dogs = await getAllDogs();
+    /////////////filtramos
+    const filtered = Dogs.filter((dog) => {
+      if (temperament === "all") return Dogs;
+      else if (dog.temperament || dog.temperaments) {
+        if(dog.temperaments){
+          return dog.temperaments[0].name
+          .toLowerCase()
+          .includes(temperament.toLowerCase());
+        }
+        return dog.temperament
+          .toLowerCase()
+          .includes(temperament.toLowerCase());
+      }
+    });
+    res.status(200).json(filtered);
+  } catch (error) {
+    console.log(error);
+  }
 });
 // Configurar los routers
 //todas las razas y los datos de principal

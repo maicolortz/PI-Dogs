@@ -14,11 +14,11 @@ function Formdog({
   postDog,
 }) {
   const [temperamentsadd, setTemperamentsadd] = useState("");
-  const navigate =useNavigate();
-  const [valido,setValido]=useState(false)
+  const navigate = useNavigate();
+  const [valido, setValido] = useState(false);
   const [newBreed, setNewBreed] = useState({
     name: "",
-    temperament: "",
+    temperament: [],
     min_height: 0,
     max_height: 0,
     min_weight: 0,
@@ -29,14 +29,13 @@ function Formdog({
   useEffect(() => {
     getTemperament();
   }, []);
-  useEffect(()=>{
-    if(valido){
-
-      postDog(newBreed)
-      navigate('/home')
+  useEffect(() => {
+    if (valido) {
+      postDog(newBreed);
+      navigate("/home");
     }
-  },[newBreed])
-  
+  }, [newBreed]);
+
   let filterTemperament = (e) => {
     e.preventDefault();
     //getTemperament();
@@ -70,7 +69,6 @@ function Formdog({
     life_span,
     image,
   }); */
-    
 
     let valido = false;
     breed.value.length == 0
@@ -106,26 +104,22 @@ function Formdog({
         "  weight max " +
         weightmax
     );
-    
-      let tem=""+input_temperaments+""
-      let na=""+breed.value+""
-   
-     
-      setNewBreed({
-        "name": na,
-        "temperament": tem,
-        "min_height": heightmin,
-        "max_height": heightmax,
-        "min_weight": weightmin,
-        "max_weight": weightmax,
-        "life_span": lifespan,
-      });
-      
-    
+
+    let tem = "" + input_temperaments + "";
+    let na = "" + breed.value + "";
+
+    setNewBreed({
+      name: na,
+      temperament: tem,
+      min_height: heightmin,
+      max_height: heightmax,
+      min_weight: weightmin,
+      max_weight: weightmax,
+      life_span: lifespan,
+    });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    
   };
   return (
     <div className="contenedor">

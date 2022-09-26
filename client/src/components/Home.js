@@ -11,7 +11,7 @@ import {
   getTemperament,
 } from "../redux/actions/index.js";
 import CardDog from "./CardDog.js";
-
+import perrodefault from '../../src/images/perro.png';
 const Home = ({
   Dogs,
   OrderForName,
@@ -23,12 +23,13 @@ const Home = ({
   temperaments,
   getTemperament,
 }) => {
+  
   const [name, setName] = useState("");
   // const dispatch=useDispatch()
   const [sort, setSort] = useState();
-  useEffect(() => {
+  /* useEffect(() => {
     getDog();
-  }, [sort]);
+  }, [sort]); */
   useEffect(() => {
     getTemperament();
     getDog(" ");
@@ -65,7 +66,7 @@ const Home = ({
       <section className="panel">
         <div className="form-group">
 
-      <img className="imagenpanel"src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"></img>
+      <img className="imagenpanel"src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png" alt='panel'></img>
       <div className="icono"></div>
         </div>
       <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
@@ -132,15 +133,17 @@ const Home = ({
       <section className="container">
         
           {Dog &&
-            Dog.map((dog) => (
+            Dog.map((dog) =>(
                 <div key={dog.id}>
+                  
               <CardDog 
               id={dog.id}
                 
-                weight={dog.weight.metric}
+                weight={dog.weight.metric?dog.weight.metric:dog.weight[0]+" - "+dog.weight[1]}
                  name={dog.name}
-                 temperament={dog.temperament}
-                 img={dog.image}
+                 temperament={dog.temperament?dog.temperament:dog.temperaments.map(e=>e.name)?dog.temperaments.map(e=>e.name):console.log('1')}
+                 
+                 img={dog.image?dog.image:perrodefault}
                  
                 />
               </div>

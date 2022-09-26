@@ -34,12 +34,12 @@ export default function rootReducer(state = initialState, action) {
         ordenWeight =
           action.payload == "min"
             ? state.dog.sort((a, b) =>
-                a.weight.imperial.localeCompare(b.weight.imperial, undefined, {
+                a.weight.metric.localeCompare(b.weight.metric, undefined, {
                   numeric: true,
                 })
               )
             : state.dog.sort((a, b) =>
-                b.weight.imperial.localeCompare(a.weight.imperial, undefined, {
+                b.weight.metric.localeCompare(a.weight.metric, undefined, {
                   numeric: true,
                 })
               );
