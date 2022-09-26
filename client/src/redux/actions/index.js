@@ -15,7 +15,7 @@ export function getDog(name) {
 }
 export function getDogDtabase(name) {
   return async function (dispatch) {
-    return fetch(`http://localhost:4000/dogs/?db=${name}`)
+    return fetch(`http://localhost:4000/dogs/db/?db=${name}`)
       .then((r) => r.json())
       .then((m) => dispatch({ type: "GET_DOG_DATABASE", payload: m }));
   };

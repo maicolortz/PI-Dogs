@@ -46,7 +46,7 @@ const getAllDogs = async () => {
   return [...api, ...db];
 };
 //http://localhost:4000/dogs/?db=algo
-router.get("/dogs/",async(req,res)=>{
+router.get("/dogs/db/",async(req,res)=>{
   const { db } = req.query;
     const infoDb = await getInfoDB();
     const api=await getInfoAPI();
@@ -59,10 +59,10 @@ router.get("/dogs", async (req, res) => {
 
   const { name } = req.query;
   if (name) {
-    const filtered = infototal.filter((e) =>
+    const filtered = await infototal.filter((e) =>
       e.name.toLowerCase().includes(name.toLowerCase())
     );
-    filtered.length ? res.send(filtered) : res.send("Dog has not been founded");
+    filtered.length ? res.status(200).send(filtered) : res.status(404).send("Dog has not been founded");
   } else {
     res.json(infototal);
   }
@@ -140,15 +140,15 @@ router.get("/dog/", async (req, res) => {
     /////////////filtramos
     const filtered = Dogs.filter((dog) => {
       if (temperament === "all") return Dogs;
-      else if (dog.temperament || dog.temperaments) {
-        if(dog.temperaments){
-          return dog.temperaments[0].name
-          .toLowerCase()
-          .includes(temperament.toLowerCase());
-        }
+      else if (dog.temperament) {
+       
         return dog.temperament
           .toLowerCase()
           .includes(temperament.toLowerCase());
+      }else  if(dog.temperaments){
+        return dog.temperaments[0].name
+        .toLowerCase()
+        .includes(temperament.toLowerCase());
       }
     });
     res.status(200).json(filtered);
