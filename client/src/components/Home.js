@@ -29,15 +29,15 @@ const Home = ({
 
   const [numveces, setNumveces] = useState(0);
   const [inicio, setInicio] = useState(0);
-  const [fin, setFin] = useState(7);
+  const [fin, setFin] = useState(8);
   const [contador, setContador] = useState(0);
   let handleback = (e) => {
     e.preventDefault();
     if (contador != 0) {
       setContador(contador - 1);
-      setInicio(inicio - 7);
-      setFin(fin - 7);
-      console.log("siguiente");
+      setInicio(inicio - 8);
+      setFin(fin - 8);
+      console.log("back");
     } else {
       console.log("no se puede retroceder");
     }
@@ -45,16 +45,11 @@ const Home = ({
   let handlenext = (e) => {
     e.preventDefault();
     if (Dog.length) {
-      console.log(parseInt(Dog.length / 7));
-
-      if (contador >= 0) {
-        if (contador < parseInt(Dog.length / 7)) {
+      if (contador >= 0 && contador+1<(Dog.length / 8)) {
+       
           setContador(contador + 1);
-          setInicio(inicio + 7);
-          setFin(fin + 7);
-          console.log("siguiente");
-          console.log("contador" + contador);
-        }
+          setInicio(inicio + 8);
+          setFin(fin + 8);
       } else {
         console.log("no se puede avanzar");
       }
@@ -73,7 +68,7 @@ const Home = ({
 
   useEffect(() => {
     setInicio(0);
-    setFin(7);
+    setFin(8);
     setContador(0);
   }, [Dog]);
   let handleChange = (e) => {
