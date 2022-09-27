@@ -12,17 +12,19 @@ router.use(express.json());
 
 const getInfoAPI = async () => {
   const apiExterna = await axios.get(URL);
-  const Dogs = await apiExterna.data.filter(e=>e.id!=232 && e.id!=179).map((dog) => {
-    return {
-      id: dog.id,
-      image: dog.image.url,
-      name: dog.name,
-      temperament: dog.temperament ? dog.temperament : "no info",
-      weight: dog.weight,
-      height: dog.height,
-      life_span: dog.life_span,
-    };
-  });
+  const Dogs = await apiExterna.data
+    .filter((e) => e.id != 232 && e.id != 179)
+    .map((dog) => {
+      return {
+        id: dog.id,
+        image: dog.image.url,
+        name: dog.name,
+        temperament: dog.temperament ? dog.temperament : "no info",
+        weight: dog.weight,
+        height: dog.height,
+        life_span: dog.life_span,
+      };
+    });
   return Dogs;
 };
 //info de data base
@@ -46,62 +48,65 @@ const getAllDogs = async () => {
   return [...api, ...db];
 };
 //http://localhost:4000/dogs/?db=algo
-router.get("/dogs/db/",async(req,res)=>{
+router.get("/dogs/db/", async (req, res) => {
   const { db } = req.query;
-    const infoDb = await getInfoDB();
-    const api=await getInfoAPI();
-    /////////////filtramos
-    const filtered = db==='true'?infoDb:api
+  const infoDb = await getInfoDB();
+  const api = await getInfoAPI();
+  /////////////filtramos
+  const filtered = db === "true" ? infoDb : api;
   res.json(filtered);
-})
+});
 router.get("/dogs", async (req, res) => {
   const infototal = await getAllDogs();
 
   const { name } = req.query;
   if (name) {
-    const filtered = await infototal.filter((e) =>
+    const filtered = infototal.filter((e) =>
       e.name.toLowerCase().includes(name.toLowerCase())
     );
-    filtered.length ? res.status(200).send(filtered) : res.status(404).send("Dog has not been founded");
+    filtered.length
+      ? res.status(200).send(filtered)
+      : res.status(404).send("Dog has not been founded");
   } else {
     res.json(infototal);
   }
 });
-// Ejemplo: router.use('/auth', authRouter);
-//lista de razas de perros que contengan la palabra ingresada
-const apiData = async () => {};
-//crear un perro
-router.post("/dogs", async (req, res) => {
-  const {
-    name,
-    temperament,
-    min_height,
-    max_height,
-    min_weight,
-    max_weight,
-    image,
-    life_span,
-  } = req.body;
-  const height = `${min_height} - ${ max_height}`;
-  const weight = `${min_weight} - ${ max_weight}`;
 
-  const dog = await Dog.create({
-    name,
-    temperament: temperament,
-    height: {metric:height},
-    weight: {metric:weight},
-    life_span,
-    image,
-  });
-  console.log(temperament);
-  let tempd = await Temperament.create({ name: temperament });
-  /*  let temperamentDB = await Temperament.findAll({
+router.post("/dogs", async (req, res) => {
+  try {
+    const {
+      name,
+      temperament,
+      min_height,
+      max_height,
+      min_weight,
+      max_weight,
+      image,
+      life_span,
+    } = req.body;
+    const height = `${min_height} - ${max_height}`;
+    const weight = `${min_weight} - ${max_weight}`;
+
+    const dog = await Dog.create({
+      name,
+      temperament,
+      height: { metric: height },
+      weight: { metric: weight },
+      life_span,
+      image,
+    });
+    console.log(temperament);
+    let tempd = await Temperament.create({ name: temperament });
+    /*  let temperamentDB = await Temperament.findAll({
     where: { name: "Active"},
   }); */
-  dog.addTemperament(tempd);
-  /* console.log(dog)
+    dog.addTemperament(tempd);
+    /* console.log(dog)
   res.json(dog); */
-  res.send("created");
+    res.send("created");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.get("/dogs/:id", async (req, res) => {
@@ -121,15 +126,15 @@ router.get("/temperaments", async (req, res) => {
     .toString()
     .split(",");
 
-  const temper = temperaments.map((f) => {
+temperaments.map((f) => {
     if (f) {
       Temperament.findOrCreate({ where: { name: f } });
     }
-  });
-  const tem = temperaments.filter((e) => e.name);
+  }); 
+  const te = await Temperament.findAll();
+  
   //console.log('temper'+temper);//console.log('temperaments'+temperaments)
-  const t = await Temperament.findAll();
-  return res.send(t);
+  return res.send(te);
 });
 
 ///http://localhost:4000/dog/?temperament=algo
@@ -141,14 +146,14 @@ router.get("/dog/", async (req, res) => {
     const filtered = Dogs.filter((dog) => {
       if (temperament === "all") return Dogs;
       else if (dog.temperament) {
-       
         return dog.temperament
           .toLowerCase()
           .includes(temperament.toLowerCase());
-      }else  if(dog.temperaments){
+      }
+      if (dog.temperaments[0].name) {
         return dog.temperaments[0].name
-        .toLowerCase()
-        .includes(temperament.toLowerCase());
+          .toLowerCase()
+          .includes(temperament.toLowerCase());
       }
     });
     res.status(200).json(filtered);

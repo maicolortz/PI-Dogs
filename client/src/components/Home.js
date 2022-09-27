@@ -1,6 +1,6 @@
-import React, { Component, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import {
   getDog,
@@ -12,8 +12,7 @@ import {
   getDogDtabase,
 } from "../redux/actions/index.js";
 import CardDog from "./CardDog.js";
-import perrodefault from '../../src/images/perro.png';
-
+import perrodefault from "../../src/images/perro.png";
 const Home = ({
   Dogs,
   OrderForName,
@@ -24,9 +23,43 @@ const Home = ({
   filterForTemperament,
   temperaments,
   getTemperament,
-  getDogDatabase
+  getDogDatabase,
 }) => {
-  
+  ///paginacion
+
+  const [numveces, setNumveces] = useState(0);
+  const [inicio, setInicio] = useState(0);
+  const [fin, setFin] = useState(7);
+  const [contador, setContador] = useState(0);
+  let handleback = (e) => {
+    e.preventDefault();
+    if (contador != 0) {
+      setContador(contador - 1);
+      setInicio(inicio - 7);
+      setFin(fin - 7);
+      console.log("siguiente");
+    } else {
+      console.log("no se puede retroceder");
+    }
+  };
+  let handlenext = (e) => {
+    e.preventDefault();
+    if (Dog.length) {
+      console.log(parseInt(Dog.length / 7));
+
+      if (contador >= 0) {
+        if (contador < parseInt(Dog.length / 7)) {
+          setContador(contador + 1);
+          setInicio(inicio + 7);
+          setFin(fin + 7);
+          console.log("siguiente");
+          console.log("contador" + contador);
+        }
+      } else {
+        console.log("no se puede avanzar");
+      }
+    }
+  };
   const [name, setName] = useState("");
   // const dispatch=useDispatch()
   const [sort, setSort] = useState();
@@ -38,6 +71,11 @@ const Home = ({
     getDog(" ");
   }, []);
 
+  useEffect(() => {
+    setInicio(0);
+    setFin(7);
+    setContador(0);
+  }, [Dog]);
   let handleChange = (e) => {
     setName(e.target.value);
   };
@@ -64,113 +102,123 @@ const Home = ({
     filterForTemperament(e.target.value);
     setSort(e.target.value);
   };
-  let filterDb=(e)=>{
+  let filterDb = (e) => {
     e.preventDefault();
     getDogDatabase(e.target.value);
-    setSort(e.target.value)
-  }
+    setSort(e.target.value);
+  };
   return (
     <div className="contenedormayor">
       <section className="panel">
         <div className="form-group">
-
-      <img className="imagenpanel"src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png" alt='panel'></img>
-      <div className="icono"></div>
+          <img
+            className="imagenpanel"
+            src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"
+            alt="panel"
+          ></img>
+          <div className="icono"></div>
         </div>
-      <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label className="label" htmlFor="name">
-            BREED:
-          </label>
-          <input
-          placeholder="Search ......"
-            type="text"
-            id="name"
-            autoComplete="off"
-            value={name}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <button type="submit">Search</button>
-      </form>
-      <div className="form-group">
-
-      
-      <div>
-        <button onClick={() => getDog("")}>clear Filter</button>
-      </div>
-      <div>
-        <select onChange={(e) => order(e)}>
-          <option disabled selected defaultValue>
-            order Alphabetic
-          </option>
-          <option value="asc">ascending</option>
-          <option value="des">descending</option>
-        </select>
-      </div>
-      <div>
-        <select onChange={(e) => orderWeight(e)}>
-          <option disabled selected defaultValue>
-            order Weight
-          </option>
-          <option value="min">Minime Weight</option>
-          <option value="max">Maxime Weight</option>
-        </select>
-      </div>
-      <div>
-        <select onChange={(e) => filterDb(e)}>
-          <option disabled selected defaultValue>
-            Filter Dogs 
-          </option>
-          <option value="true">Dogs in database</option>
-          <option value="false">Dogs in extern api</option>
-        </select>
-      </div>
-      <div>
-        <select onChange={(e) => filterTemperament(e)}>
-          <option disabled selected defaultValue>
-            Filter by Temperament
-          </option>
-          <option value="all">All</option>
-          {temperaments &&
-            temperaments.map((e) => (
-              <option value={e.name} key={e.id}>
-                {e.name}
+        <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <label className="label" htmlFor="name">
+              BREED:
+            </label>
+            <input
+              placeholder="Search ......"
+              type="text"
+              id="name"
+              autoComplete="off"
+              value={name}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <button type="submit">Search</button>
+        </form>
+        <div className="form-group">
+          <div>
+            <button onClick={() => getDog("")}>clear Filter</button>
+          </div>
+          <div>
+            <select onChange={(e) => order(e)}>
+              <option disabled selected defaultValue>
+                order Alphabetic
               </option>
-            ))}
-        </select>
-      </div>
-      <form className="formdetail"method="get" action="/newdog">
-        <button className="b-detail" type="submit">
-          Create Dog
-        </button>
-      </form>
-      </div>
+              <option value="asc">ascending</option>
+              <option value="des">descending</option>
+            </select>
+          </div>
+          <div>
+            <select onChange={(e) => orderWeight(e)}>
+              <option disabled selected defaultValue>
+                order Weight
+              </option>
+              <option value="min">Minime Weight</option>
+              <option value="max">Maxime Weight</option>
+            </select>
+          </div>
+          <div>
+            <select onChange={(e) => filterDb(e)}>
+              <option disabled selected defaultValue>
+                Filter Dogs
+              </option>
+              <option value="true">Dogs in database</option>
+              <option value="false">Dogs in extern api</option>
+            </select>
+          </div>
+          <div>
+            <select onChange={(e) => filterTemperament(e)}>
+              <option disabled selected defaultValue>
+                Filter by Temperament
+              </option>
+              <option value="all">All</option>
+              {temperaments &&
+                temperaments.map((e) => (
+                  <option value={e.name} key={e.id}>
+                    {e.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <form className="formdetail" method="get" action="/newdog">
+            <button className="b-detail" type="submit">
+              Create Dog
+            </button>
+          </form>
+        </div>
       </section>
       <section className="container">
-        
-          {Dog &&
-            Dog.map((dog) =>(
-                <div key={dog.id}>
-                  
-              <CardDog 
-              id={dog.id}
-                
-                weight={dog.weight.metric?dog.weight.metric:dog.weight[0]+" - "+dog.weight[1]}
-                 name={dog.name}
-                 temperament={dog.temperament?dog.temperament:dog.temperaments.map(e=>e.name)?dog.temperaments.map(e=>e.name):console.log('1')}
-                 
-                 img={dog.image?dog.image:perrodefault}
-                 
-                />
-              </div>
-            ))}
-          {/* {Dogs && Dogs.map(movie=>(
+        {Dog &&
+          Dog.slice(inicio, fin).map((dog) => (
+            <div key={dog.id}>
+              <CardDog
+                id={dog.id}
+                weight={
+                  dog.weight.metric
+                    ? dog.weight.metric
+                    : dog.weight[0] + " - " + dog.weight[1]
+                }
+                name={dog.name}
+                temperament={
+                  dog.temperament
+                    ? dog.temperament
+                    : dog.temperaments.map((e) => e.name)
+                    ? dog.temperaments.map((e) => e.name)
+                    : console.log("1")
+                }
+                img={dog.image ? dog.image : perrodefault}
+              />
+            </div>
+          ))}
+        {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>
           <h2>{movie.name}</h2> 
         </div>
       ))} */}
       </section>
+      <div className="container">
+        <button onClick={(e) => handleback(e)}>BACK</button>
+        <button onClick={(e) => handlenext(e)}>NEXT</button>
+      </div>
     </div>
   );
 };
@@ -190,7 +238,7 @@ function mapDispatchToProps(dispatch) {
     OrderForWeight: (e) => dispatch(OrderForWeight(e)),
     filterForTemperament: (e) => dispatch(filterForTemperament(e)),
     getTemperament: (e) => dispatch(getTemperament(e)),
-    getDogDatabase:(e)=>dispatch(getDogDtabase(e))
+    getDogDatabase: (e) => dispatch(getDogDtabase(e)),
   };
 }
 
