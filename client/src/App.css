@@ -143,26 +143,26 @@ width: 70%;
 border-radius: 7%;
   line-height: 24pt;
   letter-spacing: 0.5px;
-  height: 150vh;
+  height: fit-content;
   object-fit: cover;
   font-size: 1rem;
 text-decoration: dotted;
 text-align: center;
   background: #000000a9;
-  
+  padding-bottom: 1%;
   color: white;
   margin: 6px;
   box-shadow: inset 30px 10px 30px 30px rgba(20, 20, 20, 0.534);
   font-style: italic;
   font-size: xx-large;
 }
-.card{
+.card,.cardd{
   padding-top: 1rem ;
   border-radius: 7%;
   line-height: 13pt;
   letter-spacing: 0.5px;
   width: 300px;
-  height: 450px;
+  height: 480px;
   object-fit: cover;
   font-size: 1rem;
 text-decoration: dotted;
@@ -173,6 +173,9 @@ text-align: center;
   margin: 6px;
   box-shadow: 7px 7px 12px 0 rgba(20, 20, 20, 0.3);
   box-shadow: inset 0px 10px 46px 21px rgb(20 20 20 / 53%);
+}
+.cardd{
+  height: fit-content;
 }
 .b-home{
   color: black;

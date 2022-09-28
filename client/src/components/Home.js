@@ -2,6 +2,7 @@ import React, {  useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import NotFound from "./NotFound.js";
 import {
   getDog,
   OrderForName,
@@ -182,7 +183,10 @@ const Home = ({
         </div>
       </section>
       <section className="container">
-        {Dog &&
+        {Dog?console.log(Dog.length):console.log('no')}
+        { 
+              Dog && Dog.length!=0?  
+        Dog &&
           Dog.slice(inicio, fin).map((dog) => (
             <div key={dog.id}>
               <CardDog
@@ -203,7 +207,8 @@ const Home = ({
                 img={dog.image ? dog.image : perrodefault}
               />
             </div>
-          ))}
+          )) :<NotFound/>}
+           
         {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>
           <h2>{movie.name}</h2> 

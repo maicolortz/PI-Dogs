@@ -57,18 +57,22 @@ router.get("/dogs/db/", async (req, res) => {
   res.json(filtered);
 });
 router.get("/dogs", async (req, res) => {
-  const infototal = await getAllDogs();
+  try {
+    const infototal = await getAllDogs();
 
-  const { name } = req.query;
-  if (name) {
-    const filtered = infototal.filter((e) =>
-      e.name.toLowerCase().includes(name.toLowerCase())
-    );
-    filtered.length
-      ? res.status(200).send(filtered)
-      : res.status(404).send("Dog has not been founded");
-  } else {
-    res.json(infototal);
+    const { name } = req.query;
+    if (name) {
+      const filtered = infototal.filter((e) =>
+        e.name.toLowerCase().includes(name.toLowerCase())
+      );
+      filtered.length
+        ? res.status(200).send(filtered)
+        : res.status(404).json(null)
+    } else {
+      res.json(infototal);
+    }
+  } catch (error) {
+    res.json(error);
   }
 });
 
@@ -125,14 +129,13 @@ router.get("/temperaments", async (req, res) => {
     .map((e) => e.temperament)
     .toString()
     .split(",");
-
-temperaments.map((f) => {
+  temperaments.map((f) => {
     if (f) {
       Temperament.findOrCreate({ where: { name: f } });
     }
-  }); 
+  });
   const te = await Temperament.findAll();
-  
+
   //console.log('temper'+temper);//console.log('temperaments'+temperaments)
   return res.send(te);
 });
@@ -158,7 +161,7 @@ router.get("/dog/", async (req, res) => {
     });
     res.status(200).json(filtered);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 });
 // Configurar los routers

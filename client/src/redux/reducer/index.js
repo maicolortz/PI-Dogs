@@ -22,10 +22,11 @@ export default function rootReducer(state = initialState, action) {
         dogDetail: action.payload,
       };
     case "GET_DOG":
-      
+      let dog=[];
+      dog=action.payload==null?dog:action.payload
       return {
         ...state,
-        dog: action.payload,
+        dog: dog
       };
       case "GET_DOG_DATABASE":
       
