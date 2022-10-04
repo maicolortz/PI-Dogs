@@ -38,8 +38,10 @@ function Formdog({
 
   let filterTemperament = (e) => {
     e.preventDefault();
-    //getTemperament();
-    let tem = temperamentsadd + e.target.value + " , ";
+    if(temperamentsadd.includes(e.target.value)){
+    }else{
+      var tem = temperamentsadd + e.target.value + " , ";
+    }
     setTemperamentsadd(tem);
   };
   //validacion de formulario

@@ -168,7 +168,7 @@ text-align: center;
 text-decoration: dotted;
 text-align: center;
   background: #000000eb;
-  
+  padding-bottom: 1rem  ;
   color: white;
   margin: 6px;
   box-shadow: 7px 7px 12px 0 rgba(20, 20, 20, 0.3);
@@ -209,12 +209,12 @@ text-align: center;
   height: fit-content;
   padding: 2%;
 }
-.b-detail{
+.b-create-dog{
   background-color: orange;
   opacity: 0.9;
   color: black;
 }
-.b-detail:hover{
+.b-create-dog:hover{
   background-color: orangered;
   transition: 0.5s;
-}
+} 

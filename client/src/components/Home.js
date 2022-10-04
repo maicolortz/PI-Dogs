@@ -175,18 +175,20 @@ const Home = ({
                 ))}
             </select>
           </div>
-          <form className="formdetail" method="get" action="/newdog">
-            <button className="b-detail" type="submit">
-              Create Dog
-            </button>
-          </form>
+          <div>
+            <form method="get" action="/newdog">
+              <button className="b-create-dog" type="submit">
+                Create Dog
+              </button>
+            </form>
+          </div>
         </div>
       </section>
       <section className="container">
-        {Dog?console.log(Dog.length):console.log('no')}
-        { 
-              Dog && Dog.length!=0?  
-        Dog &&
+      {Dog && Dog.message ? (
+          <NotFound />
+        ) : (
+          Dog &&
           Dog.slice(inicio, fin).map((dog) => (
             <div key={dog.id}>
               <CardDog
@@ -207,7 +209,8 @@ const Home = ({
                 img={dog.image ? dog.image : perrodefault}
               />
             </div>
-          )) :<NotFound/>}
+          ))
+        )}
            
         {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>

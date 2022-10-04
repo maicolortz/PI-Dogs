@@ -8,6 +8,7 @@ const { API_KEY } = process.env;
 const URL = `https://api.thedogapi.com/v1/breeds`;
 const router = Router();
 const express = require("express");
+const { col } = require("sequelize");
 router.use(express.json());
 
 const getInfoAPI = async () => {
@@ -27,6 +28,7 @@ const getInfoAPI = async () => {
     });
   return Dogs;
 };
+
 //info de data base
 const getInfoDB = async () => {
   //const data=await getInfoAPI();
@@ -44,30 +46,57 @@ const getInfoDB = async () => {
 //concatenar todos los datos
 const getAllDogs = async () => {
   const [api, db] = [await getInfoAPI(), await getInfoDB()];
-  console.log(db);
+  //console.log(db);
   return [...api, ...db];
 };
 //http://localhost:4000/dogs/?db=algo
 router.get("/dogs/db/", async (req, res) => {
-  const { db } = req.query;
-  const infoDb = await getInfoDB();
-  const api = await getInfoAPI();
-  /////////////filtramos
-  const filtered = db === "true" ? infoDb : api;
-  res.json(filtered);
+  try {
+    const { db } = req.query;
+    const infoDb = await getInfoDB();
+    const api = await getInfoAPI();
+    /////////////filtramos
+    const filtered = db === "true" ? infoDb : api;
+    filtered.length
+      ? res.status(200).json(filtered)
+      : res.status(404).json({ message: "not has been founded" });
+  } catch (error) {
+    res.send(error);
+  }
 });
+router.get('/dogs/mayora10', async (req,res)=>{
+  const Dogs= await getAllDogs();
+  const filtered=Dogs.map(e=>
+    e.weight.metric.match(/(\d+)/)[0]>10
+  )
+  res.json(filtered)
+})
+//filtrar perros con peso maximo mayor a 10
+router.get('/dogs/mayora10pp', async (req,res)=>{
+  const Dogs= await getAllDogs();
+  const filtered=Dogs.filter(e=>
+    Number.parseFloat(e.weight.metric.substring(2).match(/(\d+)/))>10 
+  )
+  res.json(filtered)
+})
 router.get("/dogs", async (req, res) => {
   try {
     const infototal = await getAllDogs();
 
     const { name } = req.query;
+    const { id } = req.query;
     if (name) {
       const filtered = infototal.filter((e) =>
         e.name.toLowerCase().includes(name.toLowerCase())
       );
       filtered.length
         ? res.status(200).send(filtered)
-        : res.status(404).json(null)
+        : res.status(404).json({ message: "not has been founded" });
+    } else if (id) {
+      const filtroid = infototal.filter((e) => e.id == id);
+      filtroid.length
+        ? res.status(200).send(filtroid)
+        : res.status(404).json({ message: "not has been founded" });
     } else {
       res.json(infototal);
     }
@@ -99,8 +128,10 @@ router.post("/dogs", async (req, res) => {
       life_span,
       image,
     });
-    console.log(temperament);
-    let tempd = await Temperament.create({ name: temperament });
+    ////console.log(temperament);
+    const [tempd, created] = await Temperament.findOrCreate({
+      where: { name: temperament },
+    });
     /*  let temperamentDB = await Temperament.findAll({
     where: { name: "Active"},
   }); */
@@ -109,7 +140,7 @@ router.post("/dogs", async (req, res) => {
   res.json(dog); */
     res.send("created");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 });
 
@@ -124,20 +155,24 @@ router.get("/dogs/:id", async (req, res) => {
 //obtener todos los temperamentos, primero de la api externa y guardarlos
 //en la base de datos
 router.get("/temperaments", async (req, res) => {
-  const data = await getAllDogs();
-  const temperaments = data
-    .map((e) => e.temperament)
-    .toString()
-    .split(",");
-  temperaments.map((f) => {
-    if (f) {
-      Temperament.findOrCreate({ where: { name: f } });
-    }
-  });
-  const te = await Temperament.findAll();
+  try {
+    const data = await getAllDogs();
+    const temperaments = data
+      .map((e) => e.temperament)
+      .toString()
+      .split(",");
+    temperaments.map((f) => {
+      if (f) {
+        Temperament.findOrCreate({ where: { name: f } });
+      }
+    });
+    const te = await Temperament.findAll();
 
-  //console.log('temper'+temper);//console.log('temperaments'+temperaments)
-  return res.send(te);
+    //console.log('temper'+temper);//console.log('temperaments'+temperaments)
+    return res.send(te);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 ///http://localhost:4000/dog/?temperament=algo
@@ -164,6 +199,7 @@ router.get("/dog/", async (req, res) => {
     console.log(error.message);
   }
 });
+
 // Configurar los routers
 //todas las razas y los datos de principal
 //router.get('/dogs',getDogs);
