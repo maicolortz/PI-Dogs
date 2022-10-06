@@ -80,7 +80,8 @@ router.get('/dogs/mayora10pp', async (req,res)=>{
   res.json(filtered)
 })
 router.get("/dogs", async (req, res) => {
-  try {
+try {
+  
     const infototal = await getAllDogs();
 
     const { name } = req.query;
@@ -98,11 +99,11 @@ router.get("/dogs", async (req, res) => {
         ? res.status(200).send(filtroid)
         : res.status(404).json({ message: "not has been founded" });
     } else {
-      res.json(infototal);
+      infototal.length?res.json(infototal):res.json({message: "not has been founded"})
     }
-  } catch (error) {
-    res.json(error);
-  }
+} catch (error) {
+  console.error(error)
+}
 });
 
 router.post("/dogs", async (req, res) => {

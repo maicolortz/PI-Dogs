@@ -185,9 +185,11 @@ const Home = ({
         </div>
       </section>
       <section className="container">
-      {Dog && Dog.message ? (
+        {console.log(Dog)}
+      {!Dog ? (
           <NotFound />
-        ) : (
+        ) :(
+
           Dog &&
           Dog.slice(inicio, fin).map((dog) => (
             <div key={dog.id}>
@@ -210,7 +212,7 @@ const Home = ({
               />
             </div>
           ))
-        )}
+        ) }
            
         {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>
