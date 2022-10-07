@@ -7,8 +7,8 @@ const {
 } = process.env;
 
 let sequelize = 
-process.env.NODE_ENV === "production"
-? new Sequelize({
+
+ new Sequelize({
     database: DB_NAME,
     dialect: "postgres",
     host: DB_HOST,
@@ -29,10 +29,10 @@ process.env.NODE_ENV === "production"
     },
     ssl: true,
 })
-: new Sequelize(
+/*: new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`,
     { logging: false, native: false }
-);
+);*/
 
 /* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
   logging: false, // set to console.log to see the raw SQL queries
