@@ -22,17 +22,16 @@ export default function rootReducer(state = initialState, action) {
         dogDetail: action.payload,
       };
     case "GET_DOG":
-      let dog=[];
-      dog=action.payload==null?dog:action.payload
+    
       return {
         ...state,
-        dog: dog
+        dog: encontrado(action.payload)
       };
       case "GET_DOG_DATABASE":
-      
+        let res =encontrado(action.payload)
       return{
           ...state,
-          dog:action.payload
+          dog:res
         }
     case "ORDER_FOR_WEIGHT":
       let /* ordenWeight=state.dog
@@ -73,3 +72,8 @@ export default function rootReducer(state = initialState, action) {
       return state;
   }
 };
+function encontrado(action){
+let resul=action.length?action:["none"] 
+
+return resul;
+}

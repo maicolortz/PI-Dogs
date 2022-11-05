@@ -8,7 +8,10 @@ padding: 0rem;
 border-radius: 3rem;
 box-shadow: inset 0px 10px 46px 21px rgb(20 20 20 / 53%);
 }
-
+.notfound{
+  height: 100%;
+  font-size: xx-large;
+}
 .contenedormayor{
   display: flex;
   justify-content: center;

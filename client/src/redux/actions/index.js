@@ -12,6 +12,7 @@ export function getDog(name) {
   return async function (dispatch) {
     try {
       const { data } = await axios.get(`/dogs?name=${name}`);
+      
       // let d=json.data.length?json.data:json({message:'not found'});
 
       return dispatch({
@@ -60,7 +61,7 @@ export function getDogDetail(id) {
 
 export function postDog(dog) {
   return async function () {
-    const d = await axios.post("http://localhost:4000/dogs", dog);
+    const d = await axios.post("/dogs", dog);
     return d;
   };
 }

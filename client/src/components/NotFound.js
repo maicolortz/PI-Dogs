@@ -2,7 +2,7 @@ import React from 'react'
 
 function NotFound() {
   return (
-    <div className='cardd'>
+    <div className='notfound'>
       <h1>Not Found</h1>
     </div>
   )

@@ -59,7 +59,7 @@ router.get("/dogs/db/", async (req, res) => {
     const filtered = db === "true" ? infoDb : api;
     filtered.length
       ? res.status(200).json(filtered)
-      : res.status(404).json({ message: "not has been founded" });
+      : res.status(200).send(  "not has been founded");
   } catch (error) {
     res.send(error);
   }
@@ -92,14 +92,14 @@ try {
       );
       filtered.length
         ? res.status(200).send(filtered)
-        : res.status(404).json({ message: "not has been founded" });
+        : res.status(200).send(  "not has been founded");
     } else if (id) {
       const filtroid = infototal.filter((e) => e.id == id);
       filtroid.length
         ? res.status(200).send(filtroid)
-        : res.status(404).json({ message: "not has been founded" });
+        : res.status(200).send(  "not has been founded");
     } else {
-      infototal.length?res.json(infototal):res.json({message: "not has been founded"})
+      infototal.length?res.json(infototal):res.send(  "not has been founded");
     }
 } catch (error) {
   console.error(error)

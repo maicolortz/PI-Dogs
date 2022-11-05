@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -32,6 +32,11 @@ const Home = ({
   const [inicio, setInicio] = useState(0);
   const [fin, setFin] = useState(8);
   const [contador, setContador] = useState(0);
+  const [weight,setWeight]=useState("none");
+  
+  const [database,setDatabase]=useState("none")
+  const [orderaz,setOrderAZ]=useState("none")
+  const [temperament,setTemperament]=useState("none")
   let handleback = (e) => {
     e.preventDefault();
     if (contador != 0) {
@@ -46,11 +51,10 @@ const Home = ({
   let handlenext = (e) => {
     e.preventDefault();
     if (Dog.length) {
-      if (contador >= 0 && contador+1<(Dog.length / 8)) {
-       
-          setContador(contador + 1);
-          setInicio(inicio + 8);
-          setFin(fin + 8);
+      if (contador >= 0 && contador + 1 < Dog.length / 8) {
+        setContador(contador + 1);
+        setInicio(inicio + 8);
+        setFin(fin + 8);
       } else {
         console.log("no se puede avanzar");
       }
@@ -73,6 +77,7 @@ const Home = ({
     setContador(0);
   }, [Dog]);
   let handleChange = (e) => {
+    e.preventDefault()
     setName(e.target.value);
   };
 
@@ -83,11 +88,13 @@ const Home = ({
   };
   let order = (e) => {
     e.preventDefault();
+    setOrderAZ(e.target.value)
     OrderForName(e.target.value);
     setSort(e.target.value);
   };
   let orderWeight = (e) => {
     e.preventDefault();
+    setWeight(e.target.value)
     OrderForWeight(e.target.value);
     setSort(e.target.value);
   };
@@ -95,14 +102,26 @@ const Home = ({
   let filterTemperament = (e) => {
     e.preventDefault();
     //getTemperament();
+    setTemperament(e.target.value)
     filterForTemperament(e.target.value);
     setSort(e.target.value);
   };
   let filterDb = (e) => {
     e.preventDefault();
+    setDatabase(e.target.value)
     getDogDatabase(e.target.value);
     setSort(e.target.value);
+
   };
+  let limpiar =e=>{
+    e.preventDefault()
+    setWeight("none")
+    setDatabase("none")
+    setOrderAZ("none")
+    setTemperament("none")
+    getDog("")
+    setName("")
+  }
   return (
     <div className="contenedormayor">
       <section className="panel">
@@ -132,11 +151,11 @@ const Home = ({
         </form>
         <div className="form-group">
           <div>
-            <button onClick={() => getDog("")}>clear Filter</button>
+            <button onClick={(e) => limpiar(e)}>clear Filter</button>
           </div>
           <div>
-            <select onChange={(e) => order(e)}>
-              <option disabled selected defaultValue>
+            <select value={orderaz}onChange={(e) => order(e)}>
+              <option value="none" disabled selected defaultValue>
                 order Alphabetic
               </option>
               <option value="asc">ascending</option>
@@ -144,17 +163,17 @@ const Home = ({
             </select>
           </div>
           <div>
-            <select onChange={(e) => orderWeight(e)}>
-              <option disabled selected defaultValue>
+            <select  value={weight} onChange={(e) => orderWeight(e)}>
+              <option disabled  value="none" selected defaultValue>
                 order Weight
               </option>
-              <option value="min">Minime Weight</option>
+              <option value="min" >Minime Weight</option>
               <option value="max">Maxime Weight</option>
             </select>
           </div>
           <div>
-            <select onChange={(e) => filterDb(e)}>
-              <option disabled selected defaultValue>
+            <select value={database}onChange={(e) => filterDb(e)}>
+              <option value="none" disabled selected defaultValue>
                 Filter Dogs
               </option>
               <option value="true">Dogs in database</option>
@@ -162,8 +181,8 @@ const Home = ({
             </select>
           </div>
           <div>
-            <select onChange={(e) => filterTemperament(e)}>
-              <option disabled selected defaultValue>
+            <select value={temperament}onChange={(e) => filterTemperament(e)}>
+              <option value="none" disabled selected defaultValue>
                 Filter by Temperament
               </option>
               <option value="all">All</option>
@@ -185,11 +204,9 @@ const Home = ({
         </div>
       </section>
       <section className="container">
-        {console.log(Dog)}
-      {!Dog ? (
+        {Dog == "not has been founded" ? (
           <NotFound />
-        ) :(
-
+        ) : (
           Dog &&
           Dog.slice(inicio, fin).map((dog) => (
             <div key={dog.id}>
@@ -212,8 +229,8 @@ const Home = ({
               />
             </div>
           ))
-        ) }
-           
+        )}
+
         {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>
           <h2>{movie.name}</h2> 
