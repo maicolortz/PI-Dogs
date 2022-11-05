@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/PI-Dogs/static/css/main.61f8367f.css",
+    "main.js": "/PI-Dogs/static/js/main.fe70850b.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/PI-Dogs/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/panel.jpg": "/PI-Dogs/static/media/panel.5228a692685931ca51da.jpg",
+    "static/media/perro.png": "/PI-Dogs/static/media/perro.e34806685201255db83f.png",
+    "index.html": "/PI-Dogs/index.html",
+    "main.61f8367f.css.map": "/PI-Dogs/static/css/main.61f8367f.css.map",
+    "main.fe70850b.js.map": "/PI-Dogs/static/js/main.fe70850b.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/PI-Dogs/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61f8367f.css",
+    "static/js/main.fe70850b.js"
+  ]
+}
