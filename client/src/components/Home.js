@@ -241,10 +241,12 @@ const Home = ({
         </div>
       ))} */}
       </section>
+      {Dog.length!=0 && Dog != "not has been founded"? 
       <div className="container">
         <button onClick={(e) => handleback(e)}>BACK</button>
         <button onClick={(e) => handlenext(e)}>NEXT</button>
       </div>
+      :null}
     </div>
   );
 };
