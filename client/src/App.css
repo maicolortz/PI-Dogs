@@ -78,6 +78,7 @@ select,
 option {
   padding: 0.5rem;
   margin: 0.3rem;
+  
   border-radius: 1rem;
   box-shadow: inset 0px 0px 10px 0 rgba(20, 20, 20, 0.2);
 }
@@ -87,7 +88,7 @@ select:hover,
 option:hover {
   color: rgba(255, 255, 255, 0.733);
   transition: 1s;
-
+  max-width: 15rem;
   cursor: pointer;
   border-radius: 30%;
 }
@@ -113,12 +114,12 @@ option {
   background: linear-gradient(to right, #3a4e5f, #374049, #3a4e5f);
   border: none;
   color: rgba(255, 255, 255, 0.836);
-  padding: 10px 25px;
+  padding: 0.5rem 0.5rem;
   text-align: center;
   display: inline-block;
   font-size: 18px;
   opacity: 1;
-
+max-width: 15rem;
   font-family: fantasy;
 }
 
