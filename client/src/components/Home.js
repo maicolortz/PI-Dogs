@@ -126,15 +126,16 @@ const Home = ({
     <div className="contenedormayor">
       <section className="panel">
         <div className="form-group">
+          
+          <div className="icono"></div>
+        </div>
+        <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
+          <div style={{display:"flex",  alignItems:"center",justifyContent:"center"} }>
           <img
             className="imagenpanel"
             src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"
             alt="panel"
           ></img>
-          <div className="icono"></div>
-        </div>
-        <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
-          <div>
             <label className="label" htmlFor="name">
               BREED:
             </label>
@@ -146,8 +147,16 @@ const Home = ({
               value={name}
               onChange={(e) => handleChange(e)}
             />
+             <button type="submit">Search</button>
+             <div>
+            <form method="get" action="/newdog">
+              <button className="b-create-dog" type="submit">
+                Create Dog
+              </button>
+            </form>
           </div>
-          <button type="submit">Search</button>
+          </div>
+         
         </form>
         <div className="form-group">
           <div>
@@ -193,14 +202,9 @@ const Home = ({
                   </option>
                 ))}
             </select>
+           
           </div>
-          <div>
-            <form method="get" action="/newdog">
-              <button className="b-create-dog" type="submit">
-                Create Dog
-              </button>
-            </form>
-          </div>
+         
         </div>
       </section>
       <section className="container">
