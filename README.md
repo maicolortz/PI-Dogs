@@ -1,5 +1,8 @@
 ![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
 
+![Sin título (Poster (vertical)) (Portada para eBook) (1200 × 800 px) (1200 × 500 px) (1300 × 500 px) (1300 × 400 px)](https://user-images.githubusercontent.com/107804493/200704512-fedd4083-2335-4051-9c03-37998a4bd0c5.png)
+
+
 # Individual Project - Henry Dogs
 
 <img height="200" src="./dog.png" />
@@ -191,3 +194,6 @@ __IMPORTANTE__: No está permitido utilizar los filtrados, ordenamientos y pagin
 - [ ] Al menos tener un componente del frontend con sus tests respectivos
 - [ ] Al menos tener una ruta del backend con sus tests respectivos
 - [ ] Al menos tener un modelo de la base de datos con sus tests respectivos
+
+## Resultados
+
