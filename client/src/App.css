@@ -11,7 +11,10 @@
   color: #606F7B;
   font-size: 5rem;
 }
-
+button:active,option:active,select:active{
+  box-shadow: 3px 2px 22px 1px rgba(248, 32, 32, 0.24);
+  transition: 1s;
+}
 .contenedormayor {
   display: flex;
   justify-content: center;
@@ -37,9 +40,8 @@ input {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  border: 1px solid black;
   align-items: center;
-
+  color: #3a4e5f;
   margin: 0.3rem;
 
 }
@@ -47,15 +49,16 @@ input {
 .form-group {
   display: flex;
   justify-content: center;
-  margin: 1rem;
 
 }
 
 .form-g {
   display: flex;
-  flex-direction: column;
-  font-size: x-large;
-
+  flex-direction: row;
+  font-size: large;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .formlanding {
@@ -65,6 +68,7 @@ input {
 
 input {
   font-size: 16pt;
+  color: rgb(54, 47, 47);
 }
 
 label,
@@ -255,7 +259,10 @@ option {
   height: fit-content;
   padding: 2%;
 }
-
+form{
+  display: flex;
+  flex-direction: column;
+}
 .b-create-dog {
   background-color: orange;
   opacity: 0.9;

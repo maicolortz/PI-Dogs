@@ -38,8 +38,8 @@ function Formdog({
 
   let filterTemperament = (e) => {
     e.preventDefault();
-    if(temperamentsadd && temperamentsadd.includes(e.target.value)){
-    }else{
+    if (temperamentsadd && temperamentsadd.includes(e.target.value)) {
+    } else {
       setTemperamentsadd(temperamentsadd + e.target.value + " , ");
     }
   };
@@ -125,17 +125,24 @@ function Formdog({
   return (
     <div className="contenedor">
       <section className="">
+    
         <form name="fvalida" className="formdetail" method="get" action="/home">
           <button className="b-detail" type="submit">
             Back
           </button>
         </form>
+      
+
       </section>
+        
       <section className="form">
         <div className="headerform">
           <h1>New Dog</h1>
           <br />
         </div>
+        <div className="containform"style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+
+       
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-g">
             <label>Breed</label>
@@ -161,24 +168,31 @@ function Formdog({
                   ))}
               </select>
             </div>
-            <input
-              value={temperamentsadd}
-              id="temperaments"
-              readOnly
-              onChange={temperamentsadd}
-            ></input>
           </div>
           <div className="form-g">
-            <label>Height</label>
-            <span for="price">Choose a minime height...... ( CM ) : </span>
+
+          <label>temperaments selected</label>
+          <input
+            value={temperamentsadd}
+            id="temperaments"
+            readOnly
+            onChange={temperamentsadd}
+            ></input>
+            </div>
+          <div className="form-g">
+            <label>Height ( CM )</label>
+            <span for="price"></span>
             <input
+              min="10"
+              max="200"
               id="heightmin"
               maxLength="3"
               type="number"
               name="heightmin"
               step="1"
+              placeholder="minime"
             />
-            <span for="price">Choose a maxime height......( CM ) : </span>
+            <span for="price"> -- </span>
             <input
               id="heightmax"
               type="number"
@@ -186,12 +200,13 @@ function Formdog({
               min="10"
               max="200"
               step="1"
+              placeholder="maxime"
             />
           </div>
 
           <div className="form-g">
-            <label>Weight</label>
-            <span for="price">Choose a minime weight......( KG ) : </span>
+            <label>Weight ( KG )</label>
+            <span for="price"></span>
             <input
               id="weightmin"
               maxLength="3"
@@ -200,8 +215,9 @@ function Formdog({
               min="1"
               max="100"
               step="1"
+              placeholder="minime  "
             />
-            <span for="price">Choose a maxime weight......( KG ) : </span>
+            <span for="price"> -- </span>
             <input
               id="weightmax"
               type="number"
@@ -209,6 +225,7 @@ function Formdog({
               min="1"
               max="100"
               step="1"
+              placeholder="maxime  "
             />
           </div>
           <div className="form-g">
@@ -227,6 +244,7 @@ function Formdog({
             </button>
           </div>
         </form>
+        </div>
       </section>
     </div>
   );
