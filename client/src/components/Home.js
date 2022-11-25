@@ -32,11 +32,11 @@ const Home = ({
   const [inicio, setInicio] = useState(0);
   const [fin, setFin] = useState(8);
   const [contador, setContador] = useState(0);
-  const [weight,setWeight]=useState("none");
-  
-  const [database,setDatabase]=useState("none")
-  const [orderaz,setOrderAZ]=useState("none")
-  const [temperament,setTemperament]=useState("none")
+  const [weight, setWeight] = useState("none");
+
+  const [database, setDatabase] = useState("none");
+  const [orderaz, setOrderAZ] = useState("none");
+  const [temperament, setTemperament] = useState("none");
   let handleback = (e) => {
     e.preventDefault();
     if (contador != 0) {
@@ -77,7 +77,7 @@ const Home = ({
     setContador(0);
   }, [Dog]);
   let handleChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setName(e.target.value);
   };
 
@@ -88,13 +88,13 @@ const Home = ({
   };
   let order = (e) => {
     e.preventDefault();
-    setOrderAZ(e.target.value)
+    setOrderAZ(e.target.value);
     OrderForName(e.target.value);
     setSort(e.target.value);
   };
   let orderWeight = (e) => {
     e.preventDefault();
-    setWeight(e.target.value)
+    setWeight(e.target.value);
     OrderForWeight(e.target.value);
     setSort(e.target.value);
   };
@@ -102,40 +102,38 @@ const Home = ({
   let filterTemperament = (e) => {
     e.preventDefault();
     //getTemperament();
-    setTemperament(e.target.value)
+    setTemperament(e.target.value);
     filterForTemperament(e.target.value);
     setSort(e.target.value);
   };
   let filterDb = (e) => {
     e.preventDefault();
-    setDatabase(e.target.value)
+    setDatabase(e.target.value);
     getDogDatabase(e.target.value);
     setSort(e.target.value);
-
   };
-  let limpiar =e=>{
-    e.preventDefault()
-    setWeight("none")
-    setDatabase("none")
-    setOrderAZ("none")
-    setTemperament("none")
-    getDog("")
-    setName("")
-  }
+  let limpiar = (e) => {
+    e.preventDefault();
+    setWeight("none");
+    setDatabase("none");
+    setOrderAZ("none");
+    setTemperament("none");
+    getDog("");
+    setName("");
+  };
   return (
     <div className="contenedormayor">
       <section className="panel">
         <div className="form-group">
-          
           <div className="icono"></div>
         </div>
         <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
-          <div style={{display:"flex",  alignItems:"center",justifyContent:"center"} }>
-          <img
-            className="imagenpanel"
-            src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"
-            alt="panel"
-          ></img>
+          <div className="panel2">
+            <img
+              className="imagenpanel"
+              src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"
+              alt="panel"
+            ></img>
             <label className="label" htmlFor="name">
               BREED:
             </label>
@@ -147,23 +145,22 @@ const Home = ({
               value={name}
               onChange={(e) => handleChange(e)}
             />
-             <button type="submit">Search</button>
-             <div>
-            <form method="get" action="/newdog">
-              <button className="b-create-dog" type="submit">
-                Create Dog
-              </button>
-            </form>
+            <button type="submit">Search</button>
+              <form className="form-create-dog"method="get" action="/newdog">
+                <button className="b-create-dog" type="submit">
+                  Create Dog
+                </button>
+              </form>
+            <div>
+            </div>
           </div>
-          </div>
-         
         </form>
         <div className="form-group">
           <div>
             <button onClick={(e) => limpiar(e)}>clear Filter</button>
           </div>
           <div>
-            <select value={orderaz}onChange={(e) => order(e)}>
+            <select value={orderaz} onChange={(e) => order(e)}>
               <option value="none" disabled selected defaultValue>
                 order Alphabetic
               </option>
@@ -172,16 +169,16 @@ const Home = ({
             </select>
           </div>
           <div>
-            <select  value={weight} onChange={(e) => orderWeight(e)}>
-              <option disabled  value="none" selected defaultValue>
+            <select value={weight} onChange={(e) => orderWeight(e)}>
+              <option disabled value="none" selected defaultValue>
                 order Weight
               </option>
-              <option value="min" >Minime Weight</option>
+              <option value="min">Minime Weight</option>
               <option value="max">Maxime Weight</option>
             </select>
           </div>
           <div>
-            <select value={database}onChange={(e) => filterDb(e)}>
+            <select value={database} onChange={(e) => filterDb(e)}>
               <option value="none" disabled selected defaultValue>
                 Filter Dogs
               </option>
@@ -190,7 +187,7 @@ const Home = ({
             </select>
           </div>
           <div>
-            <select value={temperament}onChange={(e) => filterTemperament(e)}>
+            <select value={temperament} onChange={(e) => filterTemperament(e)}>
               <option value="none" disabled selected defaultValue>
                 Filter by Temperament
               </option>
@@ -202,9 +199,7 @@ const Home = ({
                   </option>
                 ))}
             </select>
-           
           </div>
-         
         </div>
       </section>
       <section className="container">
@@ -241,12 +236,12 @@ const Home = ({
         </div>
       ))} */}
       </section>
-      {Dog.length!=0 && Dog != "not has been founded"? 
-      <div className="container">
-        <button onClick={(e) => handleback(e)}>BACK</button>
-        <button onClick={(e) => handlenext(e)}>NEXT</button>
-      </div>
-      :null}
+      {Dog.length != 0 && Dog != "not has been founded" ? (
+        <div className="container">
+          <button onClick={(e) => handleback(e)}>BACK</button>
+          <button onClick={(e) => handlenext(e)}>NEXT</button>
+        </div>
+      ) : null}
     </div>
   );
 };
