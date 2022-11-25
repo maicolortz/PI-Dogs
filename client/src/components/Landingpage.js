@@ -1,5 +1,5 @@
 import React from "react";
-import imagelanding from "../images/panel.jpg";
+import imagelanding from "../images/port.png";
 function Landingpage() {
   return (
     <div className="landing">
