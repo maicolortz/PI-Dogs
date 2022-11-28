@@ -175,14 +175,28 @@ max-width: 15rem;
   width: 400px;
   height: auto;
 }
-
-.contain_img_card{
-overflow: hidden;
-width: 100%;
-height: 250px
+.contain_img_card {overflow: hidden;
+  width: 100%;
+  height: 230px
+  }
+.imgcardd{
+  object-fit: cover;
+  position: relative;
+  bottom: 1%;
+  width: 100%;
+  height: auto;
+}
+.contain_img_cardd{
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  min-width: 350px;
+  border-radius: 20px;
+  max-height: 800px;
 }
 
-  
+
   
 
 
@@ -234,7 +248,6 @@ height: 250px
   gap: 20px;
 }
 
-.cardDetail,
 .form {
   width: 100%;
   border-radius: 7%;
@@ -252,15 +265,42 @@ height: 250px
   font-style: italic;
   font-size: large;
 }
+.cardDetail{
+  width: 100%;
+  border-radius: 7%;
+  line-height: 24pt;
+  letter-spacing: 0.5px;
+  height: fit-content;
+  object-fit: cover;
+  font-size: 1rem;
+  text-decoration: dotted;
+  text-align: center;
+  color: white;
+  margin: 0px;
+  padding: 0%;
+  font-style: italic;
+  font-size: large;
+  display: flex;
+  flex-wrap: wrap;
+  /**/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* border: 5px solid pink; */
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  justify-content: center;
 
+  gap: 20px;
+}
 .card,
 .cardd {
 
   border-radius: 5%;
   line-height: 13pt;
   letter-spacing: 0px;
-  width: 350px;
-  height: 320px;
+  width: 380px;
+  height: 300px;
   object-fit: contain;
   font-size: 1rem;
   text-decoration: dotted;
@@ -358,6 +398,13 @@ form{
 select option {
   background-color: #374049;
   color: whitesmoke;
+}
+.span_dogdetail{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+text-align: center;
+
 }
  @media only screen and (max-width: 480px) {
   
