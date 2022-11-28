@@ -124,17 +124,12 @@ const Home = ({
   return (
     <div className="contenedormayor">
       <section className="panel">
-        <div className="form-group">
-          <div className="icono"></div>
-        </div>
         <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
           <div className="panel2">
             <div className="container_img_panel">
               <img className="imagenpanel" src={perrodefault} alt="panel"></img>
             </div>
-            <label className="label" htmlFor="name">
-              BREED:
-            </label>
+            
             <input
               placeholder="Search ......"
               type="text"
@@ -144,15 +139,17 @@ const Home = ({
               onChange={(e) => handleChange(e)}
             />
             <button type="submit">Search</button>
-            <form className="form-create-dog" method="get" action="/newdog">
+            
+            <div></div>
+            
+          </div>
+        </form>
+        <div className="form-group">
+        <form className="form-create-dog" method="get" action="/newdog">
               <button className="b-create-dog" type="submit">
                 Create Dog
               </button>
             </form>
-            <div></div>
-          </div>
-        </form>
-        <div className="form-group">
           <div>
             <button onClick={(e) => limpiar(e)}>clear Filter</button>
           </div>

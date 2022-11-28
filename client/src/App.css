@@ -6,21 +6,20 @@
   justify-content: center;
   font-size: 2rem;
 height: 150px;
+
 }
 .headerform>h1{
   display: flex;
+  position: absolute;
   font-size: larger;
-  
+  margin: 0%;
 
 }
 .notfound {
   color: #606F7B;
   font-size: 5rem;
 }
-button:active,option:active,select:active{
-  box-shadow: 3px 2px 22px 1px rgba(248, 32, 32, 0.24);
-  transition: 1s;
-}
+
 .contenedormayor {
   display: flex;
   justify-content: center;
@@ -111,8 +110,13 @@ option:hover {
   max-width: 15rem;
   cursor: pointer;
   border-radius: 30%;
+  box-shadow: 8px 8px 3px 3px rgba(0, 0, 0, 0.329);
 }
 
+button:active,option:active,select:active{
+  box-shadow: none;
+  box-shadow: 10px 2px 2px 2px rgba(255, 7, 7, 0.521);
+}
 .card:hover {
 
   transition: 0.3s;
@@ -133,8 +137,9 @@ option:hover {
 button,
 select,
 option {
-  background: linear-gradient(to right, #3a4e5f, #374049, #181f25);
+  background: none;
   border: none;
+  border-bottom: #000000 1px solid;
   color: rgba(255, 255, 255, 0.836);
   padding: 0.5rem 0.5rem;
   text-align: center;
@@ -148,13 +153,21 @@ max-width: 15rem;
   margin: 5px;
   text-align: start;
 }
+/*form ******************** img*/
 .imgcard_form {
   object-fit: cover;
- 
-  width: 100%;
-  max-height: 100%;
-  height: auto;
+ width: 100%;
+  height: 200px;
+
 }
+.contain_img{
+  overflow: hidden;
+    height: 150px;
+    
+    position: initial;
+  }
+
+  /*****************************/
 .imgcard{
   object-fit: contain;
   position: relative;
@@ -168,15 +181,10 @@ overflow: hidden;
 width: 100%;
 height: 250px
 }
+
   
   
-.contain_img{
-overflow: scroll;
-  width: 150px;
-  height: 100%;
-  
-  position: initial;
-}
+
 
 .imglanding {
   width: 200vh;
@@ -252,7 +260,7 @@ overflow: scroll;
   line-height: 13pt;
   letter-spacing: 0px;
   width: 350px;
-  height: 350px;
+  height: 320px;
   object-fit: contain;
   font-size: 1rem;
   text-decoration: dotted;
@@ -291,15 +299,17 @@ overflow: scroll;
   border-radius: 2rem;
   font-style: oblique;
 }
-
+/*panell*******************/
 .imagenpanel {
-  width: 20%;
+  width: auto;
+  height: 100px;
+
 }
 .container_img_panel{
   overflow: hidden;
-  width: auto;
   height: 70px;
 }
+/*******************************/
 .formdetail {
   display: flex;
   height: 8vh;
@@ -324,62 +334,69 @@ form{
   flex-direction: column;
 }
 .panel2{
- 
+ display: flex;
+ justify-content: center;
 }
 .form-create-dog{
   display: flex;
   align-content: center;
   align-items: center;
+  
 }
 .b-create-dog {
-  display: flex;
   justify-content: center;
   align-content:center; 
-  background-color: orange;
+  background: none;
+  background-color: rgba(255, 166, 0, 0.678);
   opacity: 0.9;
   color: whitesmoke;
 }
 
 .b-create-dog:hover {
-  background-color: orangered;
-  transition: 0.5s;
 }
 
 select option {
   background-color: #374049;
   color: whitesmoke;
 }
- @media only screen and (max-width: 600px) {
-  .container{
-    display: flex;
-    flex-direction: row;
+ @media only screen and (max-width: 480px) {
+  
+  .panel2{
+    
    }
-   .panel{
-    display: flex;
-     flex-direction: column;
-     flex-wrap: wrap;
+   input,button,select,option{
+    width: 90px;
+    height: 40px;
+    font-size: small;
+    padding: 0%;
+    text-align: center;
+
    }
-   .form-group{
-     display: flex;
-     align-content:  center;
-     flex-direction: column;
-       flex-wrap: wrap;
-     align-items: stretch;
-     
+   input{
+    min-width: 130px;
    }
-   .panel2{
-     flex-direction: column;
-     justify-items: center;
-     align-items: center;
-     justify-content: center;
-   }
-   #name{
-     width: 90%;
-     display: flex;
-     justify-content: center;
-     align-content: center;
-     align-items: center
-       
-       
-   }
+   .imagenpanel {
+    width: auto;
+    height: 70px;
+  
+  }
+  .container_img_panel{
+    overflow: hidden;
+    height: 50px;
+  }
 } 
+@media only screen and (min-width: 480px) and (max-width:786px) {
+  input,button,select,option{
+    width: 120px;
+    height: 40px;
+    font-size: medium;
+    padding: 0%;
+    text-align: center;
+    
+    
+    
+  }
+  button,select,option{
+  background: none;
+  }
+}

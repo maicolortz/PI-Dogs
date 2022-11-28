@@ -135,7 +135,6 @@ function Formdog({
 
       <section className="form">
         <div className="headerform">
-          <h1>New Dog</h1>
           <div className="contain_img">
             <img className="imgcard_form" src={perrologo}></img>
           </div>
