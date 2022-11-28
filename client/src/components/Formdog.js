@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import perrologo from "../images/perrologo.png";
 import {
   filterForTemperament,
   getTemperament,
@@ -125,125 +126,121 @@ function Formdog({
   return (
     <div className="contenedor">
       <section className="">
-    
         <form name="fvalida" className="formdetail" method="get" action="/home">
           <button className="b-detail" type="submit">
             Back
           </button>
         </form>
-      
-
       </section>
-        
+
       <section className="form">
         <div className="headerform">
           <h1>New Dog</h1>
-          <br />
+          <div className="contain_img">
+            <img className="imgcard" src={perrologo}></img>
+          </div>
         </div>
-        <div className="containform"style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div className="containform">
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="form-g">
+              <label>Breed🐶</label>
+              <input
+                id="nombre"
+                type="text"
+                placeholder="enter your breed"
+              ></input>
+            </div>
+            <div className="form-g">
+              <label>Temperaments 😒🤣😊</label>
+              <div>
+                <select onChange={(e) => filterTemperament(e)}>
+                  <option disabled selected defaultValue>
+                    Selection
+                  </option>
 
-       
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-g">
-            <label>Breed</label>
-            <input
-              id="nombre"
-              type="text"
-              placeholder="enter your breed"
-            ></input>
-          </div>
-          <div className="form-g">
-            <label>Temperaments</label>
+                  {temperaments &&
+                    temperaments.map((e) => (
+                      <option value={e.name} key={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            <div className="form-g">
+              <textarea
+                value={temperamentsadd}
+                id="temperaments"
+                readOnly
+                onChange={temperamentsadd}
+                rows="4"
+              ></textarea>
+            </div>
+            <div className="form-g">
+              <label>Height🪜 ( CM )</label>
+              <span for="price"></span>
+              <div>
+                <input
+                  min="10"
+                  max="200"
+                  id="heightmin"
+                  maxLength="3"
+                  type="number"
+                  name="heightmin"
+                  step="1"
+                  placeholder="minime"
+                />
+                <input
+                  id="heightmax"
+                  type="number"
+                  name="heightmax"
+                  min="10"
+                  max="200"
+                  step="1"
+                  placeholder="maxime"
+                />
+              </div>
+            </div>
+
+            <div className="form-g">
+              <label>Weight ⚖️( KG )</label>
+              <div>
+                <input
+                  id="weightmin"
+                  maxLength="3"
+                  type="number"
+                  name="weightmin"
+                  min="1"
+                  max="100"
+                  step="1"
+                  placeholder="minime  "
+                />
+                <input
+                  id="weightmax"
+                  type="number"
+                  name="weightmax"
+                  min="1"
+                  max="100"
+                  step="1"
+                  placeholder="maxime  "
+                />
+              </div>
+            </div>
+            <div className="form-g">
+              <label>life_span ⏳⌚</label>
+              <input
+                id="lifespan"
+                type="number"
+                placeholder=" life span in years"
+              ></input>
+            </div>
+
             <div>
-              <select onChange={(e) => filterTemperament(e)}>
-                <option disabled selected defaultValue>
-                  Selection of Temperaments
-                </option>
-
-                {temperaments &&
-                  temperaments.map((e) => (
-                    <option value={e.name} key={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-              </select>
+              <button onClick={(e) => validarFormulario(e)} type="submit">
+                SUBMIT
+              </button>
             </div>
-          </div>
-          <div className="form-g">
-
-          <label>temperaments selected</label>
-          <input
-            value={temperamentsadd}
-            id="temperaments"
-            readOnly
-            onChange={temperamentsadd}
-            ></input>
-            </div>
-          <div className="form-g">
-            <label>Height ( CM )</label>
-            <span for="price"></span>
-            <input
-              min="10"
-              max="200"
-              id="heightmin"
-              maxLength="3"
-              type="number"
-              name="heightmin"
-              step="1"
-              placeholder="minime"
-            />
-            <span for="price"> -- </span>
-            <input
-              id="heightmax"
-              type="number"
-              name="heightmax"
-              min="10"
-              max="200"
-              step="1"
-              placeholder="maxime"
-            />
-          </div>
-
-          <div className="form-g">
-            <label>Weight ( KG )</label>
-            <span for="price"></span>
-            <input
-              id="weightmin"
-              maxLength="3"
-              type="number"
-              name="weightmin"
-              min="1"
-              max="100"
-              step="1"
-              placeholder="minime  "
-            />
-            <span for="price"> -- </span>
-            <input
-              id="weightmax"
-              type="number"
-              name="weightmax"
-              min="1"
-              max="100"
-              step="1"
-              placeholder="maxime  "
-            />
-          </div>
-          <div className="form-g">
-            <label>life_span</label>
-            <input
-              id="lifespan"
-              type="number"
-              placeholder=" life span in years"
-            ></input>
-          </div>
-
-          <br />
-          <div>
-            <button onClick={(e) => validarFormulario(e)} type="submit">
-              SUBMIT
-            </button>
-          </div>
-        </form>
+          </form>
         </div>
       </section>
     </div>
