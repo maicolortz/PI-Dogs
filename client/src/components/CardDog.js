@@ -5,15 +5,16 @@ function CardDog({ id, img, name, weight, temperament }) {
   return (
     <div className="card">
       <h3>{name}</h3>
+      <div className="contain_img_card">
+
       <img className="imgcard" src={img} alt={name}></img>
+      </div>
       <span>
         {" "}
-        <br/>
-        <strong>Weight Metric :   </strong>{weight}<br/>
-        <br/>
-        <strong>Temperaments:</strong><br/>
-        {temperament}<br/>
-      </span><br/>
+        <strong>Weight (M):   </strong>{weight}
+        <strong> Temperaments : </strong>
+        {temperament?temperament.slice(0,15):""}...
+      </span>
       <NavLink className='navlink'to={`/dogs/${id}`}>Detail</NavLink>
     </div>
   );

@@ -13,7 +13,7 @@ import {
   getDogDtabase,
 } from "../redux/actions/index.js";
 import CardDog from "./CardDog.js";
-import perrodefault from "../../src/images/perro.png";
+import perrodefault from "../../src/images/perrologo.png";
 const Home = ({
   Dogs,
   OrderForName,
@@ -129,11 +129,9 @@ const Home = ({
         </div>
         <form className="form-group" onSubmit={(e) => handleSubmit(e)}>
           <div className="panel2">
-            <img
-              className="imagenpanel"
-              src="https://pupuphooray.com/wp-content/uploads/2019/03/dog-icon.png"
-              alt="panel"
-            ></img>
+            <div className="container_img_panel">
+              <img className="imagenpanel" src={perrodefault} alt="panel"></img>
+            </div>
             <label className="label" htmlFor="name">
               BREED:
             </label>
@@ -146,13 +144,12 @@ const Home = ({
               onChange={(e) => handleChange(e)}
             />
             <button type="submit">Search</button>
-              <form className="form-create-dog"method="get" action="/newdog">
-                <button className="b-create-dog" type="submit">
-                  Create Dog
-                </button>
-              </form>
-            <div>
-            </div>
+            <form className="form-create-dog" method="get" action="/newdog">
+              <button className="b-create-dog" type="submit">
+                Create Dog
+              </button>
+            </form>
+            <div></div>
           </div>
         </form>
         <div className="form-group">
@@ -202,39 +199,41 @@ const Home = ({
           </div>
         </div>
       </section>
-      <section className="container">
-        {Dog == "not has been founded" ? (
-          <NotFound />
-        ) : (
-          Dog &&
-          Dog.slice(inicio, fin).map((dog) => (
-            <div key={dog.id}>
-              <CardDog
-                id={dog.id}
-                weight={
-                  dog.weight.metric
-                    ? dog.weight.metric
-                    : dog.weight[0] + " - " + dog.weight[1]
-                }
-                name={dog.name}
-                temperament={
-                  dog.temperament
-                    ? dog.temperament
-                    : dog.temperaments.map((e) => e.name)
-                    ? dog.temperaments.map((e) => e.name)
-                    : console.log("1")
-                }
-                img={dog.image ? dog.image : perrodefault}
-              />
-            </div>
-          ))
-        )}
+      <section className="container_perros">
+        <div className="container">
+          {Dog == "not has been founded" ? (
+            <NotFound />
+          ) : (
+            Dog &&
+            Dog.slice(inicio, fin).map((dog) => (
+              <div key={dog.id}>
+                <CardDog
+                  id={dog.id}
+                  weight={
+                    dog.weight.metric
+                      ? dog.weight.metric
+                      : dog.weight[0] + " - " + dog.weight[1]
+                  }
+                  name={dog.name}
+                  temperament={
+                    dog.temperament
+                      ? dog.temperament
+                      : dog.temperaments.map((e) => e.name)
+                      ? dog.temperaments.map((e) => e.name)
+                      : console.log("1")
+                  }
+                  img={dog.image ? dog.image : perrodefault}
+                />
+              </div>
+            ))
+          )}
 
-        {/* {Dogs && Dogs.map(movie=>(
+          {/* {Dogs && Dogs.map(movie=>(
           <div key={movie.id}>
           <h2>{movie.name}</h2> 
         </div>
       ))} */}
+        </div>
       </section>
       {Dog.length != 0 && Dog != "not has been founded" ? (
         <div className="container">
