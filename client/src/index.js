@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import axios from "axios";
 import store from "./redux/store/index.js";
-axios.defaults.baseURL=/* process.env.REACT_APP_API ||  */"http://localhost:4000"
+axios.defaults.baseURL= process.env.REACT_APP_API || "http://localhost:4000"
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
