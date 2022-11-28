@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getDogDetail } from "../redux/actions";
-import dogdefault from "../../src/images/perro.png";
+import dogdefault from "../../src/images/perrologo.png";
 const DogDetail = ({ getDogDetail, dogDetail }) => {
   const params = useParams();
 
