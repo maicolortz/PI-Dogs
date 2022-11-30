@@ -17,7 +17,12 @@ height: 150px;
 }
 .notfound {
   color: #606F7B;
-  font-size: 5rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
 }
 
 .contenedormayor {
@@ -335,7 +340,7 @@ top: 50%;
   border-radius: 5%;
   line-height: 13pt;
   letter-spacing: 0px;
-  width: 380px;
+  width: 360px;
   height: 300px;
   object-fit: contain;
   font-size: 1rem;
