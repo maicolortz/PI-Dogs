@@ -145,11 +145,11 @@ const Home = ({
           </div>
         </form>
         <div className="form-group">
-        <form className="form-create-dog" method="get" action="/newdog">
+        {/* <form className="form-create-dog" method="get" action="/newdog">
               <button className="b-create-dog" type="submit">
                 Create Dog
               </button>
-            </form>
+            </form> */}
           <div>
             <button onClick={(e) => limpiar(e)}>clear Filter</button>
           </div>
@@ -171,7 +171,7 @@ const Home = ({
               <option value="max">Maxime Weight</option>
             </select>
           </div>
-          <div>
+          {/* <div>
             <select value={database} onChange={(e) => filterDb(e)}>
               <option value="none" disabled selected defaultValue>
                 Filter Dogs
@@ -179,7 +179,7 @@ const Home = ({
               <option value="true">Dogs in database</option>
               <option value="false">Dogs in extern api</option>
             </select>
-          </div>
+          </div> */}
           <div>
             <select value={temperament} onChange={(e) => filterTemperament(e)}>
               <option value="none" disabled selected defaultValue>
