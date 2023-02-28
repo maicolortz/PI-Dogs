@@ -10,7 +10,7 @@
 ![image](https://user-images.githubusercontent.com/107804493/200724043-37ba5c51-3567-439f-a9d7-57b7717821a0.png)
 
 
-## Objetivos del Proyecto
+## Objetivos del Proyecto ---
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
